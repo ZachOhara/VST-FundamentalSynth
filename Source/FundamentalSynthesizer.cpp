@@ -45,15 +45,29 @@ void FundamentalSynthesizer::processMidiMessages(MidiBuffer& midiBuffer) {
 	int time;
 	for (MidiBuffer::Iterator i(midiBuffer); i.getNextEvent(message, time);) {
 		int noteValue = message.getNoteNumber();
+		double seconds = time * secondsPerSample;
 		if (message.isNoteOn()) {
-			keyboardNotes[noteValue].isNotePlaying = true;
-			keyboardNotes[noteValue].envelopeState.runningTime = -time * secondsPerSample;
-			envelopeProcessor.beginNote(keyboardNotes[noteValue].envelopeState);
+			keyboardNotes[noteValue].beginNote(envelopeProcessor, -seconds);
 		} else if (message.isNoteOff()) {
-			envelopeProcessor.releaseNote(keyboardNotes[noteValue].envelopeState);
-			keyboardNotes[noteValue].envelopeState.runningTime = -time * secondsPerSample;
+			// if pedal is not on...
+			if (!isPedalOn) {
+				// ...release the note
+				keyboardNotes[noteValue].releaseNote(envelopeProcessor, -seconds);
+			} else {
+				// else, mark the note as pedaled
+				keyboardNotes[noteValue].pedalState = PEDALED;
+			}
 		} else if (message.isPitchWheel()) {
 			pitchBendProcessor.setModWheelValue(message.getPitchWheelValue());
+		} else if (message.isSustainPedalOff()) {
+			isPedalOn = true;
+		} else if (message.isSustainPedalOn()) {
+			isPedalOn = false;
+			for (int i = 0; i < 128; i++) {
+				if (keyboardNotes[i].pedalState == PEDALED) {
+					keyboardNotes[i].releaseNote(envelopeProcessor, -seconds);
+				}
+			}
 		}
 	}
 }
@@ -71,6 +85,8 @@ void FundamentalSynthesizer::synthesizeAudio() {
 				// write to the current sample
 				sampleBuffer[sample] += oscilator.getSampleValue(frequency, currentTime)
 					* envelopeProcessor.getVolumeAfterTime(keyboardNotes[i].envelopeState);
+
+				// check if note is finished releasing
 				if (envelopeProcessor.isFinishedReleasing(keyboardNotes[i].envelopeState)) {
 					keyboardNotes[i].isNotePlaying = false;
 				}

@@ -8,10 +8,29 @@
 #include "TuningSystem.h"
 #include "PitchBend.h"
 
-struct notestatus {
+enum NotePedalState {
+	INACTIVE,
+	PRESSED,
+	PEDALED,
+};
+
+struct Notestatus {
 	bool isNotePlaying = false;
-	double lastFrequency = 0;
+	NotePedalState pedalState;
 	NoteEnvelopeState envelopeState;
+
+	void beginNote(EnvelopeProcessor& envelope, double currentTime) {
+		isNotePlaying = true; // this is turned off by the envelope processor, not here
+		pedalState = PRESSED;
+		envelopeState.runningTime = currentTime; // should be <= 0
+		envelope.beginNote(envelopeState);
+	}
+
+	void releaseNote(EnvelopeProcessor& envelope, double currentTime) {
+		pedalState = INACTIVE;
+		envelope.releaseNote(envelopeState);
+		envelopeState.runningTime = currentTime; // should be <= 0
+	}
 };
 
 class FundamentalSynthesizer {
@@ -37,7 +56,9 @@ private:
 
 	double* sampleBuffer;
 
-	notestatus keyboardNotes[128];
+	bool isPedalOn = false;
+
+	Notestatus keyboardNotes[128];
 
 	Oscilator oscilator;
 	TuningSystem tuningMap;

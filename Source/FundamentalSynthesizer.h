@@ -10,8 +10,8 @@
 
 struct notestatus {
 	bool isNotePlaying = false;
+	double lastFrequency = 0;
 	NoteEnvelopeState envelopeState;
-	NoteOscilatorState oscilatorState;
 };
 
 class FundamentalSynthesizer {

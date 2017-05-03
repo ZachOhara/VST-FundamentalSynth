@@ -9,17 +9,11 @@ Oscilator::~Oscilator() {
 	// take no action
 }
 
-double Oscilator::getSampleValue(NoteOscilatorState& oscilatorState, double frequency, double time) {
-	double phase = (frequency * time) + oscilatorState.phaseOffset;
+double Oscilator::getSampleValue(double frequency, double time) {
+	double phase = (frequency * time);
 	phase = phase - ((int) phase);
-	oscilatorState.lastPhase = phase;
 	//return AMPLITUDE_FACTOR * getSineFromTable(phase);
 	return AMPLITUDE_FACTOR * std::sin(double_Pi * 2 * phase);
-}
-
-void Oscilator::prepareFrequencyChange(NoteOscilatorState & oscilatorState, double oldFrequency, double newFrequency, double time) {
-	double nextPhase = (newFrequency * time);
-	oscilatorState.phaseOffset = oscilatorState.lastPhase - nextPhase;
 }
 
 double Oscilator::getSineFromTable(double phase) {

@@ -3,19 +3,13 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 
-struct NoteOscilatorState {
-	double phaseOffset = 0;
-	double lastPhase = 0;
-};
-
 class Oscilator {
 public:
 	Oscilator();
 	~Oscilator();
 
-	double Oscilator::getSampleValue(NoteOscilatorState& oscilatorState,  double frequency, double time);
-	void Oscilator::prepareFrequencyChange(NoteOscilatorState& oscilatorState, double oldFrequency, double newFrequency, double time);
-
+	double Oscilator::getSampleValue(double frequency, double time);
+	
 private:
 	const double AMPLITUDE_FACTOR = 0.1;
 	const int SINE_TABLE_SAMPLES = 100000;

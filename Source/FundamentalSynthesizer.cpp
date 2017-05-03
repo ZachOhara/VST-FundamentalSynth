@@ -63,18 +63,17 @@ void FundamentalSynthesizer::synthesizeAudio() {
 	for (int sample = 0; sample < currentSamplesPerBlock; sample++) {
 		for (int i = 0; i < 128; i++) {
 			if (keyboardNotes[i].isNotePlaying) {		
+
+				// get the frequency in the current tuning system
 				double frequency = tuningMap.getFrequency(i);
 				frequency = pitchBendProcessor.getBentFrequency(frequency);
-				sampleBuffer[sample] += oscilator.getSampleValue(keyboardNotes[i].oscilatorState, frequency, currentTime)
+
+				// write to the current sample
+				sampleBuffer[sample] += oscilator.getSampleValue(frequency, currentTime)
 					* envelopeProcessor.getVolumeAfterTime(keyboardNotes[i].envelopeState);
-				//keyboardNotes[i].runningTime += secondsPerSample;
 				if (envelopeProcessor.isFinishedReleasing(keyboardNotes[i].envelopeState)) {
 					keyboardNotes[i].isNotePlaying = false;
 				}
-
-
-				//Random random = Random();
-				//sampleBuffer[sample] = (random.nextFloat() * 0.25f - 0.125f) * (tuningMap.getFrequency(i) / 1000);
 			}
 		}
 		currentTime += secondsPerSample;

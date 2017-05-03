@@ -8,20 +8,20 @@ EnvelopeProcessor::~EnvelopeProcessor() {
 	// take no action
 }
 
-void EnvelopeProcessor::beginNote(envelopeNoteState& state) {
+void EnvelopeProcessor::beginNote(NoteEnvelopeState& state) {
 	state.currentSection = PRE_ATTACK;
 }
 
-void EnvelopeProcessor::releaseNote(envelopeNoteState& state) {
+void EnvelopeProcessor::releaseNote(NoteEnvelopeState& state) {
 	state.currentSection = PRE_RELEASE;
 }
 
-bool EnvelopeProcessor::isFinishedReleasing(envelopeNoteState& state) {
+bool EnvelopeProcessor::isFinishedReleasing(NoteEnvelopeState& state) {
 	//return state.runningTime > getReleaseTime() && state.currentState == 3; // TODO: fix this bullshit
 	return state.currentSection == SILENCE;
 }
 
-double EnvelopeProcessor::getVolumeAfterTime(envelopeNoteState& state) {
+double EnvelopeProcessor::getVolumeAfterTime(NoteEnvelopeState& state) {
 	if (isReadyToProgress(state)) {
 		progressState(state);
 	}
@@ -43,7 +43,7 @@ double EnvelopeProcessor::getScaledLevel(double unscaledLevel) {
 	}
 }
 
-bool EnvelopeProcessor::isReadyToProgress(envelopeNoteState& state) {
+bool EnvelopeProcessor::isReadyToProgress(NoteEnvelopeState& state) {
 	switch (state.currentSection) {
 	case SILENCE:
 		return false; // triggered by a call to beginNote()
@@ -64,7 +64,7 @@ bool EnvelopeProcessor::isReadyToProgress(envelopeNoteState& state) {
 	}
 }
 
-void EnvelopeProcessor::progressState(envelopeNoteState& state) {
+void EnvelopeProcessor::progressState(NoteEnvelopeState& state) {
 	switch (state.currentSection) {
 	case PRE_ATTACK:
 		progressToAttack(state);
@@ -84,7 +84,7 @@ void EnvelopeProcessor::progressState(envelopeNoteState& state) {
 	}
 }
 
-void EnvelopeProcessor::progressToAttack(envelopeNoteState& state) {
+void EnvelopeProcessor::progressToAttack(NoteEnvelopeState& state) {
 	if (state.runningTime <= getAttackTime()) {
 		state.currentSection = ATTACK;
 		state.volumeDelta = (1 - state.currentVolume) / (getAttackTime() / secondsPerSample);
@@ -94,7 +94,7 @@ void EnvelopeProcessor::progressToAttack(envelopeNoteState& state) {
 	}
 }
 
-void EnvelopeProcessor::progressToDecay(envelopeNoteState& state) {
+void EnvelopeProcessor::progressToDecay(NoteEnvelopeState& state) {
 	if (state.runningTime <= getAttackTime() + getDecayTime()) {
 		state.currentSection = DECAY;
 		state.volumeDelta = (getSustainLevel() - state.currentVolume) / (getDecayTime() / secondsPerSample);
@@ -103,13 +103,13 @@ void EnvelopeProcessor::progressToDecay(envelopeNoteState& state) {
 	}
 }
 
-void EnvelopeProcessor::progressToSustain(envelopeNoteState& state) {
+void EnvelopeProcessor::progressToSustain(NoteEnvelopeState& state) {
 	state.currentSection = SUSTAIN;
 	state.currentVolume = getSustainLevel();
 	state.volumeDelta = 0;
 }
 
-void EnvelopeProcessor::progressToRelease(envelopeNoteState& state) {
+void EnvelopeProcessor::progressToRelease(NoteEnvelopeState& state) {
 	if (state.runningTime <= getReleaseTime()) {
 		state.currentSection = RELEASE;
 		state.volumeDelta = (0 - state.currentVolume) / (getReleaseTime() / secondsPerSample);
@@ -118,7 +118,7 @@ void EnvelopeProcessor::progressToRelease(envelopeNoteState& state) {
 	}
 }
 
-void EnvelopeProcessor::progressToSilence(envelopeNoteState& state) {
+void EnvelopeProcessor::progressToSilence(NoteEnvelopeState& state) {
 	state.currentSection = SILENCE;
 	state.currentVolume = 0;
 	state.volumeDelta = 0;
@@ -141,7 +141,7 @@ double EnvelopeProcessor::getReleaseTime() {
 }
 
 
-void EnvelopeProcessor::setScalingMode(envelopeScalingMode newMode) {
+void EnvelopeProcessor::setScalingMode(EnvelopeScalingMode newMode) {
 	currentMode = newMode;
 }
 

@@ -4,13 +4,13 @@
 #include "TimeFader.h"
 #include "SustainFader.h"
 
-enum envelopeScalingMode {
+enum EnvelopeScalingMode {
 	LINEAR,
 	EXPONENTIAL,
 	LOGARITHMIC,
 };
 
-enum envelopeSection {
+enum EnvelopeSection {
 	SILENCE,
 	PRE_ATTACK,
 	ATTACK,
@@ -20,9 +20,9 @@ enum envelopeSection {
 	RELEASE,
 };
 
-struct envelopeNoteState {
+struct NoteEnvelopeState {
 	int currentState = 0; // 0 for silent, [1,4] for ADSR
-	envelopeSection currentSection = SILENCE;
+	EnvelopeSection currentSection = SILENCE;
 	double currentVolume = 0; // [0,1]
 	double volumeDelta = 0; // per sample
 	double runningTime = 0;
@@ -33,12 +33,12 @@ public:
 	EnvelopeProcessor();
 	~EnvelopeProcessor();
 
-	void beginNote(envelopeNoteState& state);
-	void releaseNote(envelopeNoteState& state);
-	bool isFinishedReleasing(envelopeNoteState& state);
-	double getVolumeAfterTime(envelopeNoteState& state);
+	void beginNote(NoteEnvelopeState& state);
+	void releaseNote(NoteEnvelopeState& state);
+	bool isFinishedReleasing(NoteEnvelopeState& state);
+	double getVolumeAfterTime(NoteEnvelopeState& state);
 
-	void setScalingMode(envelopeScalingMode newMode);
+	void setScalingMode(EnvelopeScalingMode newMode);
 	void setSecondsPerSample(double time);
 	void setAttackTime(double time);
 	void setDecayTime(double time);
@@ -46,7 +46,7 @@ public:
 	void setReleaseTime(double time);
 
 private:
-	envelopeScalingMode currentMode = LINEAR;
+	EnvelopeScalingMode currentMode = LINEAR;
 	double secondsPerSample = 0;
 	double attackTime = 0;
 	double decayTime = 0;
@@ -55,13 +55,13 @@ private:
 
 	double getScaledLevel(double unscaledLevel);
 
-	bool isReadyToProgress(envelopeNoteState& state);
-	void progressState(envelopeNoteState& state);
-	void progressToAttack(envelopeNoteState& statee);
-	void progressToDecay(envelopeNoteState& state);
-	void progressToSustain(envelopeNoteState& state);
-	void progressToRelease(envelopeNoteState& state);
-	void progressToSilence(envelopeNoteState& state);
+	bool isReadyToProgress(NoteEnvelopeState& state);
+	void progressState(NoteEnvelopeState& state);
+	void progressToAttack(NoteEnvelopeState& statee);
+	void progressToDecay(NoteEnvelopeState& state);
+	void progressToSustain(NoteEnvelopeState& state);
+	void progressToRelease(NoteEnvelopeState& state);
+	void progressToSilence(NoteEnvelopeState& state);
 
 	double getAttackTime();
 	double getDecayTime();

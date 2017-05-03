@@ -65,7 +65,7 @@ void FundamentalSynthesizer::synthesizeAudio() {
 			if (keyboardNotes[i].isNotePlaying) {		
 				double frequency = tuningMap.getFrequency(i);
 				frequency = pitchBendProcessor.getBentFrequency(frequency);
-				sampleBuffer[sample] += oscilator.getSampleValue(frequency, currentTime)
+				sampleBuffer[sample] += oscilator.getSampleValue(keyboardNotes[i].oscilatorState, frequency, currentTime)
 					* envelopeProcessor.getVolumeAfterTime(keyboardNotes[i].envelopeState);
 				//keyboardNotes[i].runningTime += secondsPerSample;
 				if (envelopeProcessor.isFinishedReleasing(keyboardNotes[i].envelopeState)) {

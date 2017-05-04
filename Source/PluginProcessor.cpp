@@ -103,7 +103,11 @@ bool FSynthAudioProcessor::hasEditor() const {
 }
 
 AudioProcessorEditor* FSynthAudioProcessor::createEditor() {
-	return new FundamentalSynthesizerEditor(*this, fundamentalSynthesizer.getEnvelopeProcessor(), fundamentalSynthesizer.getTuningProcessor());
+	return new FundamentalSynthesizerEditor(*this,
+		fundamentalSynthesizer.getEnvelopeProcessor(),
+		fundamentalSynthesizer.getTuningProcessor(),
+		fundamentalSynthesizer.getOscilator1(),
+		fundamentalSynthesizer.getOscilator2());
 }
 
 void FSynthAudioProcessor::getStateInformation (MemoryBlock& destData) {

@@ -83,7 +83,9 @@ void FundamentalSynthesizer::synthesizeAudio() {
 				frequency = pitchBendProcessor.getBentFrequency(frequency);
 
 				// write to the current sample
-				sampleBuffer[sample] += oscilator.getSampleValue(frequency, currentTime)
+				double oscilators = oscilator1.getSampleValue(frequency, currentTime);
+				oscilators += oscilator2.getSampleValue(frequency, currentTime);
+				sampleBuffer[sample] += oscilators 
 					* envelopeProcessor.getVolumeAfterTime(keyboardNotes[i].envelopeState);
 
 				// check if note is finished releasing
@@ -102,4 +104,12 @@ EnvelopeProcessor& FundamentalSynthesizer::getEnvelopeProcessor() {
 
 TuningSystem& FundamentalSynthesizer::getTuningProcessor() {
 	return tuningMap;
+}
+
+Oscilator& FundamentalSynthesizer::getOscilator1() {
+	return oscilator1;
+}
+
+Oscilator& FundamentalSynthesizer::getOscilator2() {
+	return oscilator2;
 }

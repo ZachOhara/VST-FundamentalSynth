@@ -10,10 +10,32 @@ Oscilator::~Oscilator() {
 }
 
 double Oscilator::getSampleValue(double frequency, double time) {
+	frequency *= currentOctave;
 	double phase = (frequency * time);
 	phase = phase - ((int) phase);
-	//return AMPLITUDE_FACTOR * getSineFromTable(phase);
-	return AMPLITUDE_FACTOR * std::sin(double_Pi * 2 * phase);
+	return AMPLITUDE_FACTOR * getUnalteredValue(phase);
+}
+
+double Oscilator::getUnalteredValue(double phase) {
+	switch (currentType) {
+	case SINE:
+		//return getSineFromTable(phase);
+		return std::sin(double_Pi * 2 * phase);
+	case TRIANGLE:
+		return (4 * (std::abs(phase - 0.5))) - 1;
+	case SAWTOOTH:
+		return 2 * (phase - 0.5);
+	case SQUARE:
+		return phase < 0.5 ? 1 : -1;
+	}
+}
+
+void Oscilator::setWaveType(WaveType newType) {
+	currentType = newType;
+}
+
+void Oscilator::setOctaveOffset(int newOctave) {
+	currentOctave = std::pow(2, newOctave);
 }
 
 double Oscilator::getSineFromTable(double phase) {

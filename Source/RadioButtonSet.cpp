@@ -20,6 +20,10 @@ RadioButtonSet::~RadioButtonSet() {
 
 }
 
+void RadioButtonSet::triggerClick(int index) {
+	buttons[index].triggerClick();
+}
+
 void RadioButtonSet::buttonClicked(Button* button) {
 	for (int i = 0; i < length; i++) {
 		if (button == &buttons[i]) {

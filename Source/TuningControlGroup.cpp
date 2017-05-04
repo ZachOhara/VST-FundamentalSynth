@@ -1,7 +1,5 @@
 #include "TuningControlGroup.h"
 
-
-
 TuningControlGroup::TuningControlGroup(String name, String label, TuningSystem& processor) {
 	tuningProcessor = &processor;
 
@@ -35,4 +33,5 @@ void TuningControlGroup::selectionChanged(String& newSelection) {
 }
 
 void TuningControlGroup::resized() {
+
 }

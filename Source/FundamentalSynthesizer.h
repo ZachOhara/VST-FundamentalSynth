@@ -45,6 +45,8 @@ public:
 
 	EnvelopeProcessor& getEnvelopeProcessor();
 	TuningSystem& getTuningProcessor();
+	Oscilator& getOscilator1();
+	Oscilator& getOscilator2();
 
 private:
 	double secondsPerSample;
@@ -60,7 +62,8 @@ private:
 
 	Notestatus keyboardNotes[128];
 
-	Oscilator oscilator;
+	Oscilator oscilator1;
+	Oscilator oscilator2;
 	TuningSystem tuningMap;
 	PitchBend pitchBendProcessor;
 	EnvelopeProcessor envelopeProcessor;

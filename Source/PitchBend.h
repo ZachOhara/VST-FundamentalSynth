@@ -22,4 +22,3 @@ private:
 };
 
 #endif // !PITCHBEND_H
-

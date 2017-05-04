@@ -25,6 +25,8 @@ public:
 	RadioButtonSet(RadioButtonSet::Listener* callback, String* buttonNames, int numNames);
 	~RadioButtonSet();
 
+	void triggerClick(int index);
+
 	void buttonClicked(Button* button) override;
 
 	int getNecessaryHeight();

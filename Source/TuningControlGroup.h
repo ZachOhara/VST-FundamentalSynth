@@ -7,12 +7,14 @@
 
 class TuningControlGroup :
 	public Component,
-	RadioButtonSet::Listener {
+	RadioButtonSet::Listener,
+	Slider::Listener {
 public:
 	TuningControlGroup(String name, String label, TuningSystem& processor);
 	~TuningControlGroup();
 
 	void selectionChanged(String& newSelection) override;
+	void sliderValueChanged(Slider* changed) override;
 	void resized() override;
 
 private:
@@ -24,6 +26,8 @@ private:
 	TuningSystem* tuningProcessor;
 	GroupComponent* groupOutline;
 	RadioButtonSet* modeButtonSet;
+	Slider* keySlider;
+	Label* keyLabel;
 
 	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(TuningControlGroup)
 };

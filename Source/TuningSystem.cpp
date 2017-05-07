@@ -26,6 +26,10 @@ void TuningSystem::setTuningMode(tuningMode newMode) {
 	currentMode = newMode;
 }
 
+void TuningSystem::setKey(int semitonesAboveA) {
+	currentModeKey = semitonesAboveA;
+}
+
 void TuningSystem::initStandardEqual() {
 	standardEqualMap[MIDDLE_A] = MIDDLE_A_TUNING; // tuning A4 = 440hz
 

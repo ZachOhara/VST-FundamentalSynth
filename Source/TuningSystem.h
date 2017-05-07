@@ -16,6 +16,7 @@ public:
 	double getFrequency(int midiNote);
 
 	void setTuningMode(tuningMode newMode);
+	void setKey(int semitonesAboveA);
 
 private:
 	const int MIDDLE_A = 57;
@@ -30,7 +31,7 @@ private:
 	double justifiedKeyMaps[12][128];
 
 	tuningMode currentMode = JUST_TEMPERAMENT;
-	int currentModeKey = 4;
+	int currentModeKey = 0;
 
 	void initStandardEqual();
 	void initJustified(int key);

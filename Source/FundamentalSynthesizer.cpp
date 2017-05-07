@@ -82,9 +82,13 @@ void FundamentalSynthesizer::synthesizeAudio() {
 				double frequency = tuningMap.getFrequency(i);
 				frequency = pitchBendProcessor.getBentFrequency(frequency);
 
-				// write to the current sample
+				// calculate the sample
 				double oscilators = oscilator1.getSampleValue(frequency, currentTime);
 				oscilators += oscilator2.getSampleValue(frequency, currentTime);
+				oscilators += oscilator3.getSampleValue(frequency, currentTime);
+				oscilators /= 3;
+
+				// write to the current sample
 				sampleBuffer[sample] += oscilators 
 					* envelopeProcessor.getVolumeAfterTime(keyboardNotes[i].envelopeState);
 
@@ -112,4 +116,8 @@ Oscilator& FundamentalSynthesizer::getOscilator1() {
 
 Oscilator& FundamentalSynthesizer::getOscilator2() {
 	return oscilator2;
+}
+
+Oscilator& FundamentalSynthesizer::getOscilator3() {
+	return oscilator3;
 }

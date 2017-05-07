@@ -3,7 +3,7 @@
 
 FundamentalSynthesizerEditor::FundamentalSynthesizerEditor(FSynthAudioProcessor& p,
 	EnvelopeProcessor& envelope, TuningSystem& tuning,
-	Oscilator& oscilator1, Oscilator& oscilator2) :
+	Oscilator& oscilator1, Oscilator& oscilator2, Oscilator& oscilator3) :
 	AudioProcessorEditor (&p) {
 	setSize(800, 500);
 
@@ -25,6 +25,11 @@ FundamentalSynthesizerEditor::FundamentalSynthesizerEditor(FSynthAudioProcessor&
 	oscilator2control = new OscilatorControlGroup("Oscilator 2", "Oscilator 2", oscilator2);
 	oscilator2control->setTopLeftPosition(250, 175);
 	addAndMakeVisible(oscilator2control);
+
+	// 200 x 125
+	oscilator3control = new OscilatorControlGroup("Oscilator 3", "Oscilator 3", oscilator3);
+	oscilator3control->setTopLeftPosition(250, 325);
+	addAndMakeVisible(oscilator3control);
 
 	envelopeControl = new EnvelopeControlGroup("Envelope", "Envelope", envelope);
 	envelopeControl->setTopLeftPosition(475, 25);

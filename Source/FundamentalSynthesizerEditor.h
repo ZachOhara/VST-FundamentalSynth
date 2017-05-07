@@ -18,7 +18,7 @@ class FundamentalSynthesizerEditor :
 public:
     FundamentalSynthesizerEditor(FSynthAudioProcessor& p,
 		EnvelopeProcessor& envelope, TuningSystem& tuning,
-		Oscilator& oscilator1, Oscilator& oscilator2);
+		Oscilator& oscilator1, Oscilator& oscilator2, Oscilator& oscilator3);
     ~FundamentalSynthesizerEditor();
 	
     void paint (Graphics&) override;
@@ -28,6 +28,7 @@ private:
 	TuningControlGroup* tuningControl;
 	OscilatorControlGroup* oscilator1control;
 	OscilatorControlGroup* oscilator2control;
+	OscilatorControlGroup* oscilator3control;
 	EnvelopeControlGroup* envelopeControl;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (FundamentalSynthesizerEditor)

@@ -107,7 +107,8 @@ AudioProcessorEditor* FSynthAudioProcessor::createEditor() {
 		fundamentalSynthesizer.getEnvelopeProcessor(),
 		fundamentalSynthesizer.getTuningProcessor(),
 		fundamentalSynthesizer.getOscilator1(),
-		fundamentalSynthesizer.getOscilator2());
+		fundamentalSynthesizer.getOscilator2(),
+		fundamentalSynthesizer.getOscilator3());
 }
 
 void FSynthAudioProcessor::getStateInformation (MemoryBlock& destData) {

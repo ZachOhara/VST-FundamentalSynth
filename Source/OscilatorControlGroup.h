@@ -19,7 +19,7 @@ public:
 
 private:
 	const int WIDTH = 200;
-	const int HEIGHT = 130;
+	const int HEIGHT = 125;
 
 	Oscilator* baseOscilator;
 	GroupComponent* groupOutline;

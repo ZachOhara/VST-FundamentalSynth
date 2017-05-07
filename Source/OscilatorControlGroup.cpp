@@ -15,7 +15,7 @@ OscilatorControlGroup::OscilatorControlGroup(String name, String label, Oscilato
 	octaveSet = new RadioButtonSet(this, octaves, 5);
 	octaveSet->triggerClick(2);
 	addAndMakeVisible(octaveSet);
-	octaveSet->setTopLeftPosition(115, 17);
+	octaveSet->setTopLeftPosition(115, 15);
 	octaveSet->setSize(90, octaveSet->getNecessaryHeight());
 	
 	/*

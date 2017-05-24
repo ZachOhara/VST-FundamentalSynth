@@ -86,6 +86,11 @@ MixerControlGroup::MixerControlGroup(String name, String label, OscilatorMixer& 
 	addAndMakeVisible(groupOutline);
 	groupOutline->setTopLeftPosition(0, 0);
 	groupOutline->setSize(getWidth(), getHeight());
+
+	// TODO: figure out a better way of loading defaults
+	osc1active->triggerClick();
+	osc2active->triggerClick();
+	osc3active->triggerClick();
 }
 
 MixerControlGroup::~MixerControlGroup() {

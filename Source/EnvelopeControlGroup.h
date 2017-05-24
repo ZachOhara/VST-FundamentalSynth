@@ -59,15 +59,6 @@ private:
 
 	RadioButtonSet* modeButtonSet;
 
-	ToggleButton linearModeButton;
-	ToggleButton exponentialModeButton;
-	ToggleButton logarithmicModeButton;
-
-	Label linearModeLabel;
-	Label exponentialModeLabel;
-	Label logarithmicModeLabel;
-
-	//void buttonClicked(Button* button) override;
 	void selectionChanged(String& newSelection) override;
 	void sliderValueChanged(Slider* slider) override;
 

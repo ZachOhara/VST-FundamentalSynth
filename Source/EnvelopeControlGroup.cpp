@@ -51,32 +51,15 @@ EnvelopeControlGroup::EnvelopeControlGroup(String name, String label, EnvelopePr
 		envelopeControlSpacing.buttonLabelsWidth,
 		modeButtonSet->getNecessaryHeight());
 
-	/*
-	addAndMakeVisible(linearModeButton);
-	linearModeButton.addListener(this);
-	addAndMakeVisible(linearModeLabel);
-	linearModeLabel.setText("Linear", dontSendNotification);
-	linearModeButton.setRadioGroupId(1, dontSendNotification);
-
-
-	addAndMakeVisible(exponentialModeButton);
-	exponentialModeButton.addListener(this);
-	addAndMakeVisible(exponentialModeLabel);
-	exponentialModeLabel.setText("Exponential", dontSendNotification);
-	exponentialModeButton.setRadioGroupId(1, dontSendNotification);
-
-	addAndMakeVisible(logarithmicModeButton);
-	logarithmicModeButton.addListener(this);
-	addAndMakeVisible(logarithmicModeLabel);
-	logarithmicModeLabel.setText("Logarithmic", dontSendNotification);
-	logarithmicModeButton.setRadioGroupId(1, dontSendNotification);
-
-
-	linearModeButton.triggerClick();
-	*/
-
-	// TODO: find a better way to set defaults than hard-coding
-	logarithmicModeButton.triggerClick();
+	// TODO find a better way to set defaults than hard-coding
+	
+	// set default scaling method
+	modeButtonSet->triggerClick(2); // default == logarithmic
+	// set default ADSR times (this is a horrible hack)
+	sliderValueChanged(&envelopeAttackFader);
+	sliderValueChanged(&envelopeDecayFader);
+	sliderValueChanged(&envelopeSustainFader);
+	sliderValueChanged(&envelopeReleaseFader);
 }
 
 EnvelopeControlGroup::~EnvelopeControlGroup() {
@@ -92,18 +75,6 @@ void EnvelopeControlGroup::selectionChanged(String & newSelection) {
 		envelopeProcessor->setScalingMode(LOGARITHMIC);
 	}
 }
-
-/*
-void EnvelopeControlGroup::buttonClicked(Button* button) {
-	if (button == &linearModeButton) {
-		envelopeProcessor->setScalingMode(LINEAR);
-	} else if (button == &linearModeButton) {
-		envelopeProcessor->setScalingMode(LINEAR);
-	} else if (button == &linearModeButton) {
-		envelopeProcessor->setScalingMode(LINEAR);
-	}
-}
-*/
 
 void EnvelopeControlGroup::sliderValueChanged(Slider* slider) {
 	if (slider == &envelopeAttackFader) {

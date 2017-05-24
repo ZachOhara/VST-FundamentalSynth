@@ -35,9 +35,9 @@ double EnvelopeProcessor::getScaledLevel(double unscaledLevel) {
 	case LINEAR:
 		return unscaledLevel;
 	case EXPONENTIAL:
-		return std::pow(unscaledLevel, 2); // TODO fix this
+		return std::pow(unscaledLevel, 2); // TODO memoize this
 	case LOGARITHMIC:
-		return std::pow(unscaledLevel, 0.5);
+		return std::pow(unscaledLevel, 2.7182818);
 	default:
 		return 0;
 	}

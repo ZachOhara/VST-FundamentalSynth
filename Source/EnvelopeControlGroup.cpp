@@ -74,6 +74,9 @@ EnvelopeControlGroup::EnvelopeControlGroup(String name, String label, EnvelopePr
 
 	linearModeButton.triggerClick();
 	*/
+
+	// TODO: find a better way to set defaults than hard-coding
+	logarithmicModeButton.triggerClick();
 }
 
 EnvelopeControlGroup::~EnvelopeControlGroup() {

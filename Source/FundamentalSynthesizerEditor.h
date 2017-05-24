@@ -10,6 +10,8 @@
 #include "RadioButtonSet.h"
 #include "TuningControlGroup.h"
 #include "OscilatorControlGroup.h"
+#include "OscilatorMixer.h"
+#include "MixerControlGroup.h"
 
 class FSynthAudioProcessor;
 
@@ -18,7 +20,8 @@ class FundamentalSynthesizerEditor :
 public:
     FundamentalSynthesizerEditor(FSynthAudioProcessor& p,
 		EnvelopeProcessor& envelope, TuningSystem& tuning,
-		Oscilator& oscilator1, Oscilator& oscilator2, Oscilator& oscilator3);
+		Oscilator& oscilator1, Oscilator& oscilator2, Oscilator& oscilator3,
+		OscilatorMixer& mixer);
     ~FundamentalSynthesizerEditor();
 	
     void paint (Graphics&) override;
@@ -29,6 +32,8 @@ private:
 	OscilatorControlGroup* oscilator1control;
 	OscilatorControlGroup* oscilator2control;
 	OscilatorControlGroup* oscilator3control;
+	MixerControlGroup* mixerControl;
+
 	EnvelopeControlGroup* envelopeControl;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (FundamentalSynthesizerEditor)

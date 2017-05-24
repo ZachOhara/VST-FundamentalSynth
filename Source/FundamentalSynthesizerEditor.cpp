@@ -3,9 +3,11 @@
 
 FundamentalSynthesizerEditor::FundamentalSynthesizerEditor(FSynthAudioProcessor& p,
 	EnvelopeProcessor& envelope, TuningSystem& tuning,
-	Oscilator& oscilator1, Oscilator& oscilator2, Oscilator& oscilator3) :
+	Oscilator& oscilator1, Oscilator& oscilator2, Oscilator& oscilator3,
+	OscilatorMixer& mixer):
+
 	AudioProcessorEditor (&p) {
-	setSize(800, 500);
+	setSize(1100, 500);
 
 	// FIRST COLUMN
 
@@ -31,8 +33,15 @@ FundamentalSynthesizerEditor::FundamentalSynthesizerEditor(FSynthAudioProcessor&
 	oscilator3control->setTopLeftPosition(250, 325);
 	addAndMakeVisible(oscilator3control);
 
+	// THIRD COLUMN
+
+	// 200 x 500
+	mixerControl = new MixerControlGroup("Mixer", "Mixer", mixer);
+	mixerControl->setTopLeftPosition(475, 25);
+	addAndMakeVisible(mixerControl);
+
 	envelopeControl = new EnvelopeControlGroup("Envelope", "Envelope", envelope);
-	envelopeControl->setTopLeftPosition(475, 25);
+	envelopeControl->setTopLeftPosition(700, 25);
 	addAndMakeVisible(envelopeControl);
 }
 

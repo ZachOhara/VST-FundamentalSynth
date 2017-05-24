@@ -7,6 +7,7 @@
 #include "EnvelopeProcessor.h"
 #include "TuningSystem.h"
 #include "PitchBend.h"
+#include "OscilatorMixer.h"
 
 enum NotePedalState {
 	INACTIVE,
@@ -48,6 +49,7 @@ public:
 	Oscilator& getOscilator1();
 	Oscilator& getOscilator2();
 	Oscilator& getOscilator3();
+	OscilatorMixer& getMixer();
 
 private:
 	double secondsPerSample;
@@ -66,6 +68,7 @@ private:
 	Oscilator oscilator1;
 	Oscilator oscilator2;
 	Oscilator oscilator3;
+	OscilatorMixer mixer;
 	TuningSystem tuningMap;
 	PitchBend pitchBendProcessor;
 	EnvelopeProcessor envelopeProcessor;

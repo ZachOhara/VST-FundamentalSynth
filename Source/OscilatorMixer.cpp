@@ -9,15 +9,17 @@ OscilatorMixer::~OscilatorMixer() {
 }
 
 double OscilatorMixer::mixValues(double* oscValues) {
-	int numActive = 0;
+	double level;
+	double totalLevel = 0;
 	double sampleOutput = 0;
 	for (int i = 0; i < 3; i++) {
 		if (oscIsActive[i]) {
-			numActive += 1;
-			sampleOutput += oscValues[i] * levels[i];
+			level = std::pow(levels[i], 1.5); // exponent determined experimentally, "sounds best"
+			totalLevel += level;
+			sampleOutput += oscValues[i] * level;
 		}
 	}
-	return sampleOutput / numActive;
+	return sampleOutput / totalLevel;
 }
 
 void OscilatorMixer::setRelativeLevel(int oscilatorIndex, double level) {

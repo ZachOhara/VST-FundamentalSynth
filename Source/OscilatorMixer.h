@@ -1,6 +1,8 @@
 #ifndef OSCILATORMIXER_H
 #define OSCILATORMIXER_H
 
+#include "../JuceLibraryCode/JuceHeader.h"
+
 class OscilatorMixer {
 public:
 	OscilatorMixer();
@@ -13,7 +15,7 @@ public:
 
 private:
 	double levels[3] = {1, 1, 1};
-	bool oscIsActive[3] = {true, false, false};
+	bool oscIsActive[3] = {false, false, false};
 };
 
 #endif // !OSCILATORMIXER_H

@@ -37,7 +37,7 @@ double EnvelopeProcessor::getScaledLevel(double unscaledLevel) {
 	case EXPONENTIAL:
 		return std::pow(unscaledLevel, 2); // TODO memoize this
 	case LOGARITHMIC:
-		return std::pow(unscaledLevel, 2.7182818);
+		return std::pow(unscaledLevel, 2.7182818); // euler's number (e)
 	default:
 		return 0;
 	}

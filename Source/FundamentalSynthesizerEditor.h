@@ -12,6 +12,7 @@
 #include "OscilatorControlGroup.h"
 #include "OscilatorMixer.h"
 #include "MixerControlGroup.h"
+#include "FilterControlGroup.h"
 
 class FSynthAudioProcessor;
 
@@ -21,7 +22,7 @@ public:
     FundamentalSynthesizerEditor(FSynthAudioProcessor& p,
 		EnvelopeProcessor& envelope, TuningSystem& tuning,
 		Oscilator& oscilator1, Oscilator& oscilator2, Oscilator& oscilator3,
-		OscilatorMixer& mixer);
+		OscilatorMixer& mixer, Filter& filter);
     ~FundamentalSynthesizerEditor();
 	
     void paint (Graphics&) override;
@@ -33,6 +34,7 @@ private:
 	OscilatorControlGroup* oscilator2control;
 	OscilatorControlGroup* oscilator3control;
 	MixerControlGroup* mixerControl;
+	FilterControlGroup* filterControl;
 
 	EnvelopeControlGroup* envelopeControl;
 

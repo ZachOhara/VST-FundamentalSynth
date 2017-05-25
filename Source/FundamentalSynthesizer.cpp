@@ -133,3 +133,7 @@ Oscilator& FundamentalSynthesizer::getOscilator3() {
 OscilatorMixer& FundamentalSynthesizer::getMixer() {
 	return mixer;
 }
+
+Filter& FundamentalSynthesizer::getFilter() {
+	return filter;
+}

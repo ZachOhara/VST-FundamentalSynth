@@ -8,6 +8,7 @@
 #include "TuningSystem.h"
 #include "PitchBend.h"
 #include "OscilatorMixer.h"
+#include "Filter.h"
 
 enum NotePedalState {
 	INACTIVE,
@@ -44,12 +45,13 @@ public:
 	void freeResources();
 	void processBlock(AudioSampleBuffer& audioBuffer, MidiBuffer& midiBuffer);
 
-	EnvelopeProcessor& getEnvelopeProcessor();
 	TuningSystem& getTuningProcessor();
 	Oscilator& getOscilator1();
 	Oscilator& getOscilator2();
 	Oscilator& getOscilator3();
 	OscilatorMixer& getMixer();
+	Filter& getFilter();
+	EnvelopeProcessor& getEnvelopeProcessor();
 
 private:
 	double secondsPerSample;
@@ -65,11 +67,12 @@ private:
 
 	Notestatus keyboardNotes[128];
 
+	TuningSystem tuningMap;
 	Oscilator oscilator1;
 	Oscilator oscilator2;
 	Oscilator oscilator3;
 	OscilatorMixer mixer;
-	TuningSystem tuningMap;
+	Filter filter;
 	PitchBend pitchBendProcessor;
 	EnvelopeProcessor envelopeProcessor;
 

@@ -16,10 +16,13 @@ void FundamentalSynthesizer::prepareToPlay(double sampleRate, int samplesPerBloc
 	currentSamplesPerBlock = samplesPerBlock;
 	sampleBuffer = (double*) malloc(sizeof(double) * samplesPerBlock);
 
+	filter.setSampleRate(sampleRate);
+	filter.setCutoff(1000);
 	envelopeProcessor.setSecondsPerSample(secondsPerSample);
 }
 
 void FundamentalSynthesizer::freeResources() {
+	filter.clearSamples();
 	free(sampleBuffer);
 }
 
@@ -89,6 +92,9 @@ void FundamentalSynthesizer::synthesizeAudio() {
 					oscilator3.getSampleValue(frequency, currentTime),
 				};
 				double sampleValue = mixer.mixValues(oscilators);
+				
+				// filter it
+				sampleValue = filter.getNextOutput(sampleValue);
 
 				// write to the current sample
 				sampleBuffer[sample] += sampleValue

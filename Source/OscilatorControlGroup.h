@@ -26,6 +26,9 @@ private:
 	RadioButtonSet* waveTypeButtonSet;
 	//ComboBox* octaveSelection;
 	RadioButtonSet* octaveSet;
+
+
+	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(OscilatorControlGroup)
 };
 
 #endif // !OSCILATORCONTROLGROUP_H

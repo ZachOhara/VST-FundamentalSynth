@@ -1,6 +1,7 @@
 #ifndef ENVELOPEPROCESSOR_H_INCLUDED
 #define ENVELOPEPROCESSOR_H_INCLUDED
 
+#include "../JuceLibraryCode/JuceHeader.h"
 #include "TimeFader.h"
 #include "SustainFader.h"
 
@@ -67,6 +68,8 @@ private:
 	double getDecayTime();
 	double getSustainLevel();
 	double getReleaseTime();
+
+	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(EnvelopeProcessor)
 };
 
 #endif // !ENVELOPEPROCESSOR_H_INCLUDED

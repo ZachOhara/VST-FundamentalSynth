@@ -30,6 +30,8 @@ private:
 	double getUnalteredValue(double phase);
 	double getSineFromTable(double phase);
 	void initSineTable();
+
+	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(Oscilator)
 };
 
 #endif // !OSCILATOR_OSCILATOR_H

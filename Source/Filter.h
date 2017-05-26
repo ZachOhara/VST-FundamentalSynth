@@ -35,6 +35,8 @@ private:
 	double calculateOrderOutput(FilterState& state, double currentInput);
 	void clearFilterState(FilterState& state);
 	void recalculateCoeffs();
+
+	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(Filter)
 };
 
 #endif // !FILTER_H

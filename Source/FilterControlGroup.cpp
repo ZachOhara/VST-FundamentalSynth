@@ -77,6 +77,7 @@ FilterControlGroup::FilterControlGroup(String name, String label, Filter& filter
 	sliderValueChanged(cutoffSlider);
 	sliderValueChanged(emphasisSlider);
 	sliderValueChanged(orderSlider);
+	buttonClicked(filterEnabledButton);
 }
 
 FilterControlGroup::~FilterControlGroup() {

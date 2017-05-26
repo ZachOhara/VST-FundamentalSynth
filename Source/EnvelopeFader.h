@@ -11,6 +11,9 @@ public:
 
 	const int TEXTBOX_WIDTH = 90; // pixels
 	const int TEXTBOX_HEIGHT = 20; // pixels
+
+private:
+	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(EnvelopeFader)
 };
 
 #endif // !ENVELOPE_ENVELOPEFADER_H_INCLUDED

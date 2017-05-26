@@ -78,6 +78,8 @@ private:
 
 	void processMidiMessages(MidiBuffer& midiBuffer);
 	void synthesizeAudio();
+
+	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(FundamentalSynthesizer)
 };
 
 #endif // !SYNTHESIZER_FUNDAMENTALSYNTHESIZER_H

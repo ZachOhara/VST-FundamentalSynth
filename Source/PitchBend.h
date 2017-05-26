@@ -19,6 +19,7 @@ private:
 
 	double currentPitchMultiplier = 1;
 
+	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PitchBend)
 };
 
 #endif // !PITCHBEND_H

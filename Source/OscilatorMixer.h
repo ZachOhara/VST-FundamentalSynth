@@ -16,6 +16,8 @@ public:
 private:
 	double levels[3] = {1, 1, 1};
 	bool oscIsActive[3] = {false, false, false};
+
+	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(OscilatorMixer)
 };
 
 #endif // !OSCILATORMIXER_H

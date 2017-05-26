@@ -17,16 +17,6 @@ OscilatorControlGroup::OscilatorControlGroup(String name, String label, Oscilato
 	addAndMakeVisible(octaveSet);
 	octaveSet->setTopLeftPosition(115, 15);
 	octaveSet->setSize(90, octaveSet->getNecessaryHeight());
-	
-	/*
-	octaveSelection = new ComboBox();
-	octaveSelection->addItemList(StringArray(comboOptions, 6), 0);
-	octaveSelection->setEditableText(false);
-	octaveSelection->setSize(70, 25);
-	octaveSelection->setTopLeftPosition(110, 55);
-	octaveSelection->addListener(this);
-	addAndMakeVisible(octaveSelection);
-	*/
 
 	groupOutline = new GroupComponent(name, label);
 	groupOutline->setTextLabelPosition(Justification::top);
@@ -34,10 +24,6 @@ OscilatorControlGroup::OscilatorControlGroup(String name, String label, Oscilato
 	addAndMakeVisible(groupOutline);
 	groupOutline->setTopLeftPosition(0, 0);
 	groupOutline->setSize(getWidth(), getHeight());
-}
-
-void OscilatorControlGroup::comboBoxChanged(ComboBox* boxChanged) {
-	//baseOscilator->setOctaveOffset(octaveSelection->getSelectedId() - 3);
 }
 
 void OscilatorControlGroup::selectionChanged(String& newSelection) {

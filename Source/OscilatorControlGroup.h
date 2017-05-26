@@ -7,13 +7,11 @@
 
 class OscilatorControlGroup :
 	public Component,
-	RadioButtonSet::Listener,
-	ComboBox::Listener {
+	RadioButtonSet::Listener {
 public:
 	OscilatorControlGroup(String name, String label, Oscilator& oscilator);
 
 	void selectionChanged(String& newSelection) override;
-	void comboBoxChanged(ComboBox* boxChanged) override;
 
 private:
 	const int WIDTH = 200;
@@ -23,7 +21,6 @@ private:
 	GroupComponent* groupOutline;
 	RadioButtonSet* waveTypeButtonSet;
 	RadioButtonSet* octaveSet;
-
 
 	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(OscilatorControlGroup)
 };

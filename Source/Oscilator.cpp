@@ -4,11 +4,6 @@ Oscilator::Oscilator() {
 	initSineTable();
 }
 
-
-Oscilator::~Oscilator() {
-	// take no action
-}
-
 double Oscilator::getSampleValue(double frequency, double time) {
 	frequency *= currentOctave;
 	double phase = (frequency * time);

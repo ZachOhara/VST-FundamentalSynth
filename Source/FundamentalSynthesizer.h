@@ -38,8 +38,6 @@ struct Notestatus {
 class FundamentalSynthesizer {
 public:
 	FundamentalSynthesizer();
-	~FundamentalSynthesizer();
-
 
 	void prepareToPlay(double sampleRate, int samplesPerBlock);
 	void freeResources();

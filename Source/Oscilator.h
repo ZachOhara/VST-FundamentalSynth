@@ -13,7 +13,6 @@ enum WaveType {
 class Oscilator {
 public:
 	Oscilator();
-	~Oscilator();
 
 	double Oscilator::getSampleValue(double frequency, double time);
 	void setWaveType(WaveType newType);

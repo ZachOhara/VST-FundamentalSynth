@@ -6,7 +6,6 @@
 class OscilatorMixer {
 public:
 	OscilatorMixer();
-	~OscilatorMixer();
 
 	double mixValues(double* oscValues);
 

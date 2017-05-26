@@ -93,10 +93,6 @@ MixerControlGroup::MixerControlGroup(String name, String label, OscilatorMixer& 
 	osc3active->triggerClick();
 }
 
-MixerControlGroup::~MixerControlGroup() {
-	// take no action
-}
-
 void MixerControlGroup::sliderValueChanged(Slider* changed) {
 	if (changed == osc1level) {
 		baseMixer->setRelativeLevel(0, osc1level->getValue());

@@ -4,10 +4,6 @@ Filter::Filter() {
 
 }
 
-Filter::~Filter() {
-
-}
-
 double Filter::getNextOutput(double currentInput) {
 	double output = currentInput;
 	for (int i = 0; i < order; i++) {

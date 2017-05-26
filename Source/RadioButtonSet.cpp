@@ -16,10 +16,6 @@ RadioButtonSet::RadioButtonSet(RadioButtonSet::Listener* callback, String* butto
 	buttons[0].triggerClick();
 }
 
-RadioButtonSet::~RadioButtonSet() {
-
-}
-
 void RadioButtonSet::triggerClick(int index) {
 	buttons[index].triggerClick();
 }

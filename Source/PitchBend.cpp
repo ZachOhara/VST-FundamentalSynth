@@ -4,10 +4,6 @@ PitchBend::PitchBend() {
 
 }
 
-PitchBend::~PitchBend() {
-
-}
-
 double PitchBend::getBentFrequency(double rawFrequency) {
 	return rawFrequency * currentPitchMultiplier;
 }

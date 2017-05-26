@@ -10,7 +10,6 @@ class MixerControlGroup :
 	public Button::Listener {
 public:
 	MixerControlGroup(String name, String label, OscilatorMixer& baseMixer);
-	~MixerControlGroup();
 
 	void resized() override;
 	void sliderValueChanged(Slider* changed) override;

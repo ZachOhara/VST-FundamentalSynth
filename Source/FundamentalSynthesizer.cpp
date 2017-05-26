@@ -4,10 +4,6 @@ FundamentalSynthesizer::FundamentalSynthesizer() {
 	secondsPerSample = 0;
 }
 
-FundamentalSynthesizer::~FundamentalSynthesizer() {
-	// take no action
-}
-
 void FundamentalSynthesizer::prepareToPlay(double sampleRate, int samplesPerBlock) {
 	secondsPerSample = 1 / sampleRate;
 	secondsPerBlock = secondsPerSample * samplesPerBlock;

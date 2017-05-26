@@ -16,10 +16,6 @@ FSynthAudioProcessor::FSynthAudioProcessor()
 	
 }
 
-FSynthAudioProcessor::~FSynthAudioProcessor() {
-	// take no action
-}
-
 const String FSynthAudioProcessor::getName() const {
     return JucePlugin_Name;
 }

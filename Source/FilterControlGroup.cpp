@@ -80,10 +80,6 @@ FilterControlGroup::FilterControlGroup(String name, String label, Filter& filter
 	buttonClicked(filterEnabledButton);
 }
 
-FilterControlGroup::~FilterControlGroup() {
-
-}
-
 void FilterControlGroup::sliderValueChanged(Slider* changed) {
 	if (changed == cutoffSlider) {
 		filterProcessor->setCutoff(1000 * cutoffSlider->getValue());

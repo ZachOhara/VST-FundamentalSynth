@@ -10,7 +10,6 @@ struct FilterState {
 class Filter {
 public:
 	Filter();
-	~Filter();
 
 	double getNextOutput(double currentInput);
 

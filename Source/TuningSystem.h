@@ -11,7 +11,6 @@ enum tuningMode {
 class TuningSystem {
 public:
 	TuningSystem();
-	~TuningSystem();
 
 	double getFrequency(int midiNote);
 

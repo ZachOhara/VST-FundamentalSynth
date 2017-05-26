@@ -7,10 +7,6 @@ TuningSystem::TuningSystem() {
 	}
 }
 
-TuningSystem::~TuningSystem() {
-	// take no action
-}
-
 double TuningSystem::getFrequency(int midiNote) {
 	switch (currentMode) {
 	case EQUAL_TEMPERAMENT:

@@ -4,10 +4,6 @@ OscilatorMixer::OscilatorMixer() {
 	
 }
 
-OscilatorMixer::~OscilatorMixer() {
-
-}
-
 double OscilatorMixer::mixValues(double* oscValues) {
 	double level;
 	double totalLevel = 0;

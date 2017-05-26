@@ -8,7 +8,6 @@ class SustainFader :
 	public EnvelopeFader {
 public:
 	SustainFader();
-	~SustainFader();
 
 	const double STEP_SIZE = 1; // percent
 

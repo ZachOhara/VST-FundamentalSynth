@@ -23,7 +23,6 @@ public:
 	};
 
 	RadioButtonSet(RadioButtonSet::Listener* callback, String* buttonNames, int numNames);
-	~RadioButtonSet();
 
 	void triggerClick(int index);
 

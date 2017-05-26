@@ -4,10 +4,6 @@ EnvelopeProcessor::EnvelopeProcessor() {
 	
 }
 
-EnvelopeProcessor::~EnvelopeProcessor() {
-	// take no action
-}
-
 void EnvelopeProcessor::beginNote(NoteEnvelopeState& state) {
 	state.currentSection = PRE_ATTACK;
 }

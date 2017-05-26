@@ -8,7 +8,6 @@ class TimeFader :
 	public EnvelopeFader {
 public:
 	TimeFader();
-	~TimeFader();
 
 	const double MAX_VALUE = 2.0; // seconds
 	const double STEP_SIZE = 0.001; // seconds

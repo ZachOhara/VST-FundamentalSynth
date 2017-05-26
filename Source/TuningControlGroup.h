@@ -11,7 +11,6 @@ class TuningControlGroup :
 	Slider::Listener {
 public:
 	TuningControlGroup(String name, String label, TuningSystem& processor);
-	~TuningControlGroup();
 
 	void selectionChanged(String& newSelection) override;
 	void sliderValueChanged(Slider* changed) override;

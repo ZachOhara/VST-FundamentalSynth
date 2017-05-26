@@ -34,10 +34,6 @@ TuningControlGroup::TuningControlGroup(String name, String label, TuningSystem& 
 	groupOutline->setSize(getWidth(), getHeight());
 }
 
-TuningControlGroup::~TuningControlGroup() {
-
-}
-
 void TuningControlGroup::selectionChanged(String& newSelection) {
 	if (newSelection == "Equal Temperament") {
 		tuningProcessor->setTuningMode(EQUAL_TEMPERAMENT);

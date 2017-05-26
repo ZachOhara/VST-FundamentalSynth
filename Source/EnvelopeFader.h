@@ -7,7 +7,6 @@ class EnvelopeFader :
 	public Slider {
 public:
 	EnvelopeFader();
-	~EnvelopeFader();
 
 	const int TEXTBOX_WIDTH = 90; // pixels
 	const int TEXTBOX_HEIGHT = 20; // pixels

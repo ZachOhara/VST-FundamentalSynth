@@ -5,7 +5,3 @@ SustainFader::SustainFader() {
 	setTextValueSuffix("%");
 	setValue(100);
 }
-
-SustainFader::~SustainFader() {
-	// take no action
-}

@@ -32,7 +32,6 @@ struct NoteEnvelopeState {
 class EnvelopeProcessor {
 public:
 	EnvelopeProcessor();
-	~EnvelopeProcessor();
 
 	void beginNote(NoteEnvelopeState& state);
 	void releaseNote(NoteEnvelopeState& state);

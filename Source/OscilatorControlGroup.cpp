@@ -36,10 +36,6 @@ OscilatorControlGroup::OscilatorControlGroup(String name, String label, Oscilato
 	groupOutline->setSize(getWidth(), getHeight());
 }
 
-OscilatorControlGroup::~OscilatorControlGroup() {
-	// take no action
-}
-
 void OscilatorControlGroup::comboBoxChanged(ComboBox* boxChanged) {
 	//baseOscilator->setOctaveOffset(octaveSelection->getSelectedId() - 3);
 }

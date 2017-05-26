@@ -10,7 +10,6 @@ class FilterControlGroup :
 	Button::Listener {
 public:
 	FilterControlGroup(String name, String label, Filter& filter);
-	~FilterControlGroup();
 
 	void sliderValueChanged(Slider* changed) override;
 	void buttonClicked(Button* pressed) override;

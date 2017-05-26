@@ -6,7 +6,6 @@
 class PitchBend {
 public:
 	PitchBend();
-	~PitchBend();
 
 	double getBentFrequency(double rawFrequency);
 	void setModWheelValue(int wheelPos);

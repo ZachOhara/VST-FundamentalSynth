@@ -11,7 +11,6 @@ class OscilatorControlGroup :
 	ComboBox::Listener {
 public:
 	OscilatorControlGroup(String name, String label, Oscilator& oscilator);
-	~OscilatorControlGroup();
 
 	void selectionChanged(String& newSelection) override;
 	void comboBoxChanged(ComboBox* boxChanged) override;

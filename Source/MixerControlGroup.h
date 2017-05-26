@@ -6,10 +6,10 @@
 
 class MixerControlGroup :
 	public Component,
-	public Slider::Listener,
-	public Button::Listener {
+	Slider::Listener,
+	Button::Listener {
 public:
-	MixerControlGroup(String name, String label, OscilatorMixer& baseMixer);
+	MixerControlGroup(OscilatorMixer& processor);
 
 	void sliderValueChanged(Slider* changed) override;
 	void buttonClicked(Button* clicked) override;
@@ -18,20 +18,17 @@ private:
 	const int WIDTH = 200;
 	const int HEIGHT = 425;
 
-	Label* osc1label;
-	Label* osc2label;
-	Label* osc3label;
+	struct OscilatorControl {
+		ToggleButton* activeButton;
+		Label* label;
+		Slider* levelSlider;
+	};
 
-	Slider* osc1level;
-	Slider* osc2level;
-	Slider* osc3level;
+	OscilatorControl controls[3];
 
-	ToggleButton* osc1active;
-	ToggleButton* osc2active;
-	ToggleButton* osc3active;
+	void initializeOscilatorControl(OscilatorControl& osc, int oscNum, int yPos);
 
-	OscilatorMixer* baseMixer;
-	GroupComponent* groupOutline;
+	OscilatorMixer* mixer;
 
 	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MixerControlGroup)
 };

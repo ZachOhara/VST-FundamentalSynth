@@ -38,6 +38,8 @@ private:
 
 	EnvelopeControlGroup* envelopeControl;
 
+	void generateGroupOutline(String label, Component* component);
+
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (FundamentalSynthesizerEditor)
 };
 

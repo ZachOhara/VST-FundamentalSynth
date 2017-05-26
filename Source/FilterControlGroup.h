@@ -9,7 +9,7 @@ class FilterControlGroup :
 	Slider::Listener,
 	Button::Listener {
 public:
-	FilterControlGroup(String name, String label, Filter& filter);
+	FilterControlGroup(Filter& processor);
 
 	void sliderValueChanged(Slider* changed) override;
 	void buttonClicked(Button* pressed) override;
@@ -21,16 +21,19 @@ private:
 	ToggleButton* filterEnabledButton;
 	Label* filterEnabledLabel;
 
-	Slider* cutoffSlider;
-	Slider* emphasisSlider;
-	Slider* orderSlider;
+	struct ControlSlider {
+		Label* label;
+		Slider* slider;
+	};
 
-	Label* cutoffLabel;
-	Label* emphasisLabel;
-	Label* orderLabel;
+	ControlSlider cutoff;
+	ControlSlider emphasis;
+	ControlSlider order;
 
 	Filter* filterProcessor;
-	GroupComponent* groupOutline;
+
+	void initializeControlSlider(ControlSlider& slider, String name,
+		int yPos, double min, double max, double step, double start);
 
 	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(FilterControlGroup)
 };

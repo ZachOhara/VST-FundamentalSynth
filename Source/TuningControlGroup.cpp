@@ -1,16 +1,14 @@
 #include "TuningControlGroup.h"
 
-TuningControlGroup::TuningControlGroup(String name, String label, TuningProcessor& processor) {
-	tuningProcessor = &processor;
-
+TuningControlGroup::TuningControlGroup(TuningProcessor& processor) {
 	setSize(WIDTH, HEIGHT);
+	tuningProcessor = &processor;
 	
 	String modes[2] = {"Equal Temperament", "Just Temperament"};
 	modeButtonSet = new RadioButtonSet(this, modes, 2);
+	modeButtonSet->setTopLeftPosition(BUTTONS_LEFT_OFFSET, BUTTONS_TOP_OFFSET);
+	modeButtonSet->setSize(WIDTH - BUTTONS_LEFT_OFFSET, modeButtonSet->getNecessaryHeight());
 	addAndMakeVisible(modeButtonSet);
-	modeButtonSet->setBounds(BUTTONS_LEFT_OFFSET, BUTTONS_TOP_OFFSET,
-		WIDTH - BUTTONS_LEFT_OFFSET,
-		modeButtonSet->getNecessaryHeight());
 
 	keySlider = new Slider();
 	keySlider->setTextBoxStyle(Slider::NoTextBox, true, 0, 0);
@@ -25,13 +23,6 @@ TuningControlGroup::TuningControlGroup(String name, String label, TuningProcesso
 	keyLabel->setText("A", dontSendNotification);
 	keyLabel->attachToComponent(keySlider, true);
 	addAndMakeVisible(keyLabel);
-
-	groupOutline = new GroupComponent(name, label);
-	groupOutline->setTextLabelPosition(Justification::top);
-	groupOutline->setColour(groupOutline->outlineColourId, Colours::black);
-	addAndMakeVisible(groupOutline);
-	groupOutline->setTopLeftPosition(0, 0);
-	groupOutline->setSize(getWidth(), getHeight());
 }
 
 void TuningControlGroup::selectionChanged(String& newSelection) {

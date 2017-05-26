@@ -1,49 +1,42 @@
 #include "OscilatorControlGroup.h"
 
-OscilatorControlGroup::OscilatorControlGroup(String name, String label, Oscilator& oscilator) {
-	baseOscilator = &oscilator;
-
+OscilatorControlGroup::OscilatorControlGroup(int oscilatorNumber, Oscilator& processor) {
 	setSize(WIDTH, HEIGHT);
+	oscilator = &processor;
 
 	String wavetypes[4] = {"Sine", "Triangle", "Sawtooth", "Square"};
 	waveTypeButtonSet = new RadioButtonSet(this, wavetypes, 4);
+	waveTypeButtonSet->setTopLeftPosition(15, 25);
+	waveTypeButtonSet->setSize(120, waveTypeButtonSet->getNecessaryHeight());
 	addAndMakeVisible(waveTypeButtonSet);
-	waveTypeButtonSet->setBounds(15, 25,
-		120, waveTypeButtonSet->getNecessaryHeight());
 
 	String octaves[5] = {"32' (-2)", "16' (-1)", "8' (+0)", "4' (+1)", "2' (+2)"};
-	octaveSet = new RadioButtonSet(this, octaves, 5);
-	octaveSet->triggerClick(2);
-	addAndMakeVisible(octaveSet);
-	octaveSet->setTopLeftPosition(115, 15);
-	octaveSet->setSize(90, octaveSet->getNecessaryHeight());
+	octaveButtonSet = new RadioButtonSet(this, octaves, 5);
+	octaveButtonSet->setTopLeftPosition(115, 15);
+	octaveButtonSet->setSize(90, octaveButtonSet->getNecessaryHeight());
+	addAndMakeVisible(octaveButtonSet);
 
-	groupOutline = new GroupComponent(name, label);
-	groupOutline->setTextLabelPosition(Justification::top);
-	groupOutline->setColour(groupOutline->outlineColourId, Colours::black);
-	addAndMakeVisible(groupOutline);
-	groupOutline->setTopLeftPosition(0, 0);
-	groupOutline->setSize(getWidth(), getHeight());
+	octaveButtonSet->triggerClick(2);
 }
 
 void OscilatorControlGroup::selectionChanged(String& newSelection) {
 	if (newSelection == "Sine") {
-		baseOscilator->setWaveType(SINE);
+		oscilator->setWaveType(SINE);
 	} else if (newSelection == "Triangle") {
-		baseOscilator->setWaveType(TRIANGLE);
+		oscilator->setWaveType(TRIANGLE);
 	} else if(newSelection == "Sawtooth") {
-		baseOscilator->setWaveType(SAWTOOTH);
+		oscilator->setWaveType(SAWTOOTH);
 	} else if(newSelection == "Square") {
-		baseOscilator->setWaveType(SQUARE);
+		oscilator->setWaveType(SQUARE);
 	} else if (newSelection == "32' (-2)") {
-		baseOscilator->setOctaveOffset(-2);
+		oscilator->setOctaveOffset(-2);
 	} else if (newSelection == "16' (-1)") {
-		baseOscilator->setOctaveOffset(-1);
+		oscilator->setOctaveOffset(-1);
 	} else if (newSelection == "8' (+0)") {
-		baseOscilator->setOctaveOffset(0);
+		oscilator->setOctaveOffset(0);
 	} else if (newSelection == "4' (+1)") {
-		baseOscilator->setOctaveOffset(1);
+		oscilator->setOctaveOffset(1);
 	} else if (newSelection == "2' (+2)") {
-		baseOscilator->setOctaveOffset(2);
+		oscilator->setOctaveOffset(2);
 	}
 }

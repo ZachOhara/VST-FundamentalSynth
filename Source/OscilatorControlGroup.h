@@ -9,7 +9,7 @@ class OscilatorControlGroup :
 	public Component,
 	RadioButtonSet::Listener {
 public:
-	OscilatorControlGroup(String name, String label, Oscilator& oscilator);
+	OscilatorControlGroup(int oscilatorNumber, Oscilator& oscilator);
 
 	void selectionChanged(String& newSelection) override;
 
@@ -17,10 +17,10 @@ private:
 	const int WIDTH = 200;
 	const int HEIGHT = 125;
 
-	Oscilator* baseOscilator;
-	GroupComponent* groupOutline;
+	Oscilator* oscilator;
+
 	RadioButtonSet* waveTypeButtonSet;
-	RadioButtonSet* octaveSet;
+	RadioButtonSet* octaveButtonSet;
 
 	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(OscilatorControlGroup)
 };

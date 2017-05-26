@@ -1,5 +1,5 @@
-#ifndef PLUGINEDITOR_H_INCLUDED
-#define PLUGINEDITOR_H_INCLUDED
+#ifndef FUNDAMENTALSYNTHESIZEREDITOR_H
+#define FUNDAMENTALSYNTHESIZEREDITOR_H
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "FundamentalSynthesizer.h"
@@ -41,4 +41,4 @@ private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (FundamentalSynthesizerEditor)
 };
 
-#endif // !PLUGINEDITOR_H_INCLUDED
+#endif // FUNDAMENTALSYNTHESIZEREDITOR_H

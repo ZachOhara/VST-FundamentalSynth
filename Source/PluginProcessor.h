@@ -1,5 +1,5 @@
-#ifndef PLUGINPROCESSOR_H_INCLUDED
-#define PLUGINPROCESSOR_H_INCLUDED
+#ifndef PLUGINPROCESSOR_H
+#define PLUGINPROCESSOR_H
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "FundamentalSynthesizer.h"
@@ -43,4 +43,4 @@ private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (FSynthAudioProcessor)
 };
 
-#endif // !PLUGINPROCESSOR_H_INCLUDED
+#endif // PLUGINPROCESSOR_H

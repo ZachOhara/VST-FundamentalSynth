@@ -1,5 +1,5 @@
-#ifndef ENVELOPE_TIMEFADER_H_INCLUDED
-#define ENVELOPE_TIMEFADER_H_INCLUDED
+#ifndef TIMEFADER_H
+#define TIMEFADER_H
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "EnvelopeFader.h"
@@ -18,4 +18,4 @@ private:
 	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(TimeFader)
 };
 
-#endif // !ENVELOPE_TIMEFADER_H_INCLUDED
+#endif // TIMEFADER_H

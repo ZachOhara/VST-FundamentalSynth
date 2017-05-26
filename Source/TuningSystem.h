@@ -39,4 +39,4 @@ private:
 	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(TuningSystem)
 };
 
-#endif // !TUNINGSYSTEM_H
+#endif // TUNINGSYSTEM_H

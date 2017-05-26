@@ -1,5 +1,5 @@
-#ifndef ENVELOPE_SUSTAINFADER_H_INCLUDED
-#define ENVELOPE_SUSTAINFADER_H_INCLUDED
+#ifndef SUSTAINFADER_H
+#define SUSTAINFADER_H
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "EnvelopeFader.h"
@@ -16,4 +16,4 @@ private:
 	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(SustainFader)
 };
 
-#endif // !ENVELOPE_SUSTAINFADER_H_INCLUDED
+#endif // SUSTAINFADER_H

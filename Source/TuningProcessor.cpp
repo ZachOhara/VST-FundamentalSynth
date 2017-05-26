@@ -1,13 +1,13 @@
-#include "TuningSystem.h"
+#include "TuningProcessor.h"
 
-TuningSystem::TuningSystem() {
+TuningProcessor::TuningProcessor() {
 	initStandardEqual();
 	for (int i = 0; i < 12; i++) {
 		initJustified(i);
 	}
 }
 
-double TuningSystem::getFrequency(int midiNote) {
+double TuningProcessor::getFrequency(int midiNote) {
 	switch (currentMode) {
 	case EQUAL_TEMPERAMENT:
 		return standardEqualMap[midiNote];
@@ -18,15 +18,15 @@ double TuningSystem::getFrequency(int midiNote) {
 	}
 }
 
-void TuningSystem::setTuningMode(tuningMode newMode) {
+void TuningProcessor::setTuningMode(tuningMode newMode) {
 	currentMode = newMode;
 }
 
-void TuningSystem::setKey(int semitonesAboveA) {
+void TuningProcessor::setKey(int semitonesAboveA) {
 	currentModeKey = semitonesAboveA;
 }
 
-void TuningSystem::initStandardEqual() {
+void TuningProcessor::initStandardEqual() {
 	standardEqualMap[MIDDLE_A] = MIDDLE_A_TUNING; // tuning A4 = 440hz
 
 	for (int i = MIDDLE_A - 1; i >= 0; i--) {
@@ -37,7 +37,7 @@ void TuningSystem::initStandardEqual() {
 	}
 }
 
-void TuningSystem::initJustified(int key) {
+void TuningProcessor::initJustified(int key) {
 	const int keyCenter = MIDDLE_A + key;
 	// base the tonic off of the equal temperament tuning
 	justifiedKeyMaps[key][keyCenter] = standardEqualMap[keyCenter];

@@ -2,7 +2,7 @@
 #include "PluginProcessor.h"
 
 FundamentalSynthesizerEditor::FundamentalSynthesizerEditor(FSynthAudioProcessor& p,
-	EnvelopeProcessor& envelope, TuningSystem& tuning,
+	EnvelopeProcessor& envelope, TuningProcessor& tuning,
 	Oscilator& oscilator1, Oscilator& oscilator2, Oscilator& oscilator3,
 	OscilatorMixer& mixer, Filter& filter):
 

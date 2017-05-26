@@ -1,6 +1,6 @@
 #include "TuningControlGroup.h"
 
-TuningControlGroup::TuningControlGroup(String name, String label, TuningSystem& processor) {
+TuningControlGroup::TuningControlGroup(String name, String label, TuningProcessor& processor) {
 	tuningProcessor = &processor;
 
 	setSize(WIDTH, HEIGHT);

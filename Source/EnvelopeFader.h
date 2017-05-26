@@ -1,5 +1,5 @@
 #ifndef ENVELOPEFADER_H
-#define EENVELOPEFADER_H
+#define ENVELOPEFADER_H
 
 #include "../JuceLibraryCode/JuceHeader.h"
 

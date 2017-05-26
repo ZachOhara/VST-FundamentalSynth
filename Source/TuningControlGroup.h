@@ -2,7 +2,7 @@
 #define TUNINGCONTROLGROUP_H
 
 #include "../JuceLibraryCode/JuceHeader.h"
-#include "TuningSystem.h"
+#include "TuningProcessor.h"
 #include "RadioButtonSet.h"
 
 class TuningControlGroup :
@@ -10,7 +10,7 @@ class TuningControlGroup :
 	RadioButtonSet::Listener,
 	Slider::Listener {
 public:
-	TuningControlGroup(String name, String label, TuningSystem& processor);
+	TuningControlGroup(String name, String label, TuningProcessor& processor);
 
 	void selectionChanged(String& newSelection) override;
 	void sliderValueChanged(Slider* changed) override;
@@ -22,7 +22,7 @@ private:
 	const int BUTTONS_TOP_OFFSET = 25;
 	const int HEIGHT = 100;
 
-	TuningSystem* tuningProcessor;
+	TuningProcessor* tuningProcessor;
 	GroupComponent* groupOutline;
 	RadioButtonSet* modeButtonSet;
 	Slider* keySlider;

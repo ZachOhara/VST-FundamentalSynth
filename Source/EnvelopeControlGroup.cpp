@@ -92,7 +92,6 @@ void EnvelopeControlGroup::paint(Graphics& g) {
 	//g.fillAll(Colours::darkred);
 }
 
-
 void EnvelopeControlGroup::resized() {
 	envelopeAttackFader.setBounds(envelopeControlSpacing.envelopeLeftOffset, envelopeControlSpacing.envelopeTopOffset, envelopeControlSpacing.envelopeFaderWidth, envelopeControlSpacing.envelopeFaderHeight);
 	envelopeDecayFader.setBounds(envelopeControlSpacing.envelopeLeftOffset + (1 * envelopeControlSpacing.envelopeSideSpace), envelopeControlSpacing.envelopeTopOffset, envelopeControlSpacing.envelopeFaderWidth, envelopeControlSpacing.envelopeFaderHeight);

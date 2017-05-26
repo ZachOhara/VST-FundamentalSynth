@@ -42,7 +42,7 @@ void FundamentalSynthesizer::processBlock(AudioSampleBuffer& audioBuffer, MidiBu
 void FundamentalSynthesizer::processMidiMessages(MidiBuffer& midiBuffer) {
 	MidiMessage message;
 	int time;
-	for (MidiBuffer::Iterator i(midiBuffer); i.getNextEvent(message, time);) {
+	for (MidiBuffer::Iterator iterator(midiBuffer); iterator.getNextEvent(message, time);) {
 		int noteValue = message.getNoteNumber();
 		double seconds = time * secondsPerSample;
 		if (message.isNoteOn()) {
@@ -110,7 +110,7 @@ EnvelopeProcessor& FundamentalSynthesizer::getEnvelopeProcessor() {
 	return envelopeProcessor;
 }
 
-TuningSystem& FundamentalSynthesizer::getTuningProcessor() {
+TuningProcessor& FundamentalSynthesizer::getTuningProcessor() {
 	return tuningMap;
 }
 

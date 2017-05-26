@@ -8,9 +8,9 @@ enum tuningMode {
 	JUST_TEMPERAMENT
 };
 
-class TuningSystem {
+class TuningProcessor {
 public:
-	TuningSystem();
+	TuningProcessor();
 
 	double getFrequency(int midiNote);
 
@@ -35,7 +35,7 @@ private:
 	void initStandardEqual();
 	void initJustified(int key);
 
-	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(TuningSystem)
+	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(TuningProcessor)
 };
 
 #endif // TUNINGSYSTEM_H

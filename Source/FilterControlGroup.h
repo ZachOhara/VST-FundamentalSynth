@@ -13,7 +13,6 @@ public:
 
 	void sliderValueChanged(Slider* changed) override;
 	void buttonClicked(Button* pressed) override;
-	void resized() override;
 
 private:
 	const int WIDTH = 200;

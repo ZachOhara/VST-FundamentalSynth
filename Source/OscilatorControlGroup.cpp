@@ -61,7 +61,3 @@ void OscilatorControlGroup::selectionChanged(String& newSelection) {
 		baseOscilator->setOctaveOffset(2);
 	}
 }
-
-void OscilatorControlGroup::resized() {
-
-}

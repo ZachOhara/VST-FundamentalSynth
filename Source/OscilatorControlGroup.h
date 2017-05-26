@@ -14,7 +14,6 @@ public:
 
 	void selectionChanged(String& newSelection) override;
 	void comboBoxChanged(ComboBox* boxChanged) override;
-	void resized() override;
 
 private:
 	const int WIDTH = 200;
@@ -23,7 +22,6 @@ private:
 	Oscilator* baseOscilator;
 	GroupComponent* groupOutline;
 	RadioButtonSet* waveTypeButtonSet;
-	//ComboBox* octaveSelection;
 	RadioButtonSet* octaveSet;
 
 

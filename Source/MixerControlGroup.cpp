@@ -112,7 +112,3 @@ void MixerControlGroup::buttonClicked(Button* clicked) {
 		baseMixer->setOscilatorIsActive(2, osc3active->getToggleState());
 	}
 }
-
-void MixerControlGroup::resized() {
-
-}

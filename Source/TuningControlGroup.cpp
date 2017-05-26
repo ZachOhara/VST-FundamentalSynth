@@ -43,13 +43,11 @@ void TuningControlGroup::selectionChanged(String& newSelection) {
 }
 
 void TuningControlGroup::sliderValueChanged(Slider* changed) {
-	static const String keys[12] = {"A", "A#", "B", "C", "C#",
-		"D", "D#", "E", "F", "F#", "G", "G#"};
-	int newKey = (int) keySlider->getValue();
-	keyLabel->setText(keys[newKey], dontSendNotification);
-	tuningProcessor->setKey(newKey);
-}
-
-void TuningControlGroup::resized() {
-
+	if (changed == keySlider) {
+		static const String keys[12] = {"A", "A#", "B", "C", "C#",
+			"D", "D#", "E", "F", "F#", "G", "G#"};
+		int newKey = (int) keySlider->getValue();
+		keyLabel->setText(keys[newKey], dontSendNotification);
+		tuningProcessor->setKey(newKey);
+	}
 }

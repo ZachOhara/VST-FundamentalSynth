@@ -11,7 +11,6 @@ class MixerControlGroup :
 public:
 	MixerControlGroup(String name, String label, OscilatorMixer& baseMixer);
 
-	void resized() override;
 	void sliderValueChanged(Slider* changed) override;
 	void buttonClicked(Button* clicked) override;
 

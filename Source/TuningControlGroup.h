@@ -14,7 +14,6 @@ public:
 
 	void selectionChanged(String& newSelection) override;
 	void sliderValueChanged(Slider* changed) override;
-	void resized() override;
 
 private:
 	const int WIDTH = 200;

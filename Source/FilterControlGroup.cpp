@@ -95,7 +95,3 @@ void FilterControlGroup::buttonClicked(Button* pressed) {
 		filterProcessor->setIsEnabled(filterEnabledButton->getToggleState());
 	}
 }
-
-void FilterControlGroup::resized() {
-
-}

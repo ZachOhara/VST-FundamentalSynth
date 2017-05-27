@@ -2,8 +2,6 @@
 #define ENVELOPEPROCESSOR_H_INCLUDED
 
 #include "../JuceLibraryCode/JuceHeader.h"
-#include "TimeFader.h"
-#include "SustainFader.h"
 
 enum EnvelopeScalingMode {
 	LINEAR,

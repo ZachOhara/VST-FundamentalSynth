@@ -5,7 +5,7 @@ FundamentalSynthesizerEditor::FundamentalSynthesizerEditor(FSynthAudioProcessor&
 	SynthProcessorSet synth):
 
 	AudioProcessorEditor (&p) {
-	setSize(1200, 475);
+	setSize(1150, 475);
 
 	// FIRST COLUMN
 
@@ -29,7 +29,7 @@ FundamentalSynthesizerEditor::FundamentalSynthesizerEditor(FSynthAudioProcessor&
 
 	// THIRD COLUMN
 
-	// 200 x 500
+	// 200 x 425
 	mixerControl = new MixerControlGroup(synth.mixer);
 	mixerControl->setTopLeftPosition(475, 25);
 	addAndMakeVisible(mixerControl);
@@ -43,9 +43,13 @@ FundamentalSynthesizerEditor::FundamentalSynthesizerEditor(FSynthAudioProcessor&
 	addAndMakeVisible(filterControl);
 	generateGroupOutline("Filter", filterControl);
 
-	envelopeControl = new EnvelopeControlGroup("Envelope", "Envelope", synth.envelope);
+	// FIFTH COLUMN
+
+	// 200 x 300
+	envelopeControl = new EnvelopeControlGroup(synth.envelope);
 	envelopeControl->setTopLeftPosition(925, 25);
 	addAndMakeVisible(envelopeControl);
+	generateGroupOutline("Envelope", envelopeControl);
 }
 
 FundamentalSynthesizerEditor::~FundamentalSynthesizerEditor() {

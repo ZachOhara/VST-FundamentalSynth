@@ -4,8 +4,6 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "FundamentalSynthesizer.h"
 #include "EnvelopeProcessor.h"
-#include "TimeFader.h"
-#include "SustainFader.h"
 #include "EnvelopeControlGroup.h"
 #include "RadioButtonSet.h"
 #include "TuningControlGroup.h"

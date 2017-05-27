@@ -1,69 +1,32 @@
 #include "EnvelopeControlGroup.h"
 
-EnvelopeControlGroup::EnvelopeControlGroup(String name, String label, EnvelopeProcessor* envelope) :
+EnvelopeControlGroup::EnvelopeControlGroup(EnvelopeProcessor* envelope) :
 	Component() {
-
+	setSize(WIDTH, HEIGHT);
 	envelopeProcessor = envelope;
 
-	setSize(envelopeControlSpacing.necessaryTotalWidth, envelopeControlSpacing.necessaryTotalHeight);
-
-	groupOutline = new GroupComponent(name, label);
-
-	groupOutline->setText(label);
-	groupOutline->setTextLabelPosition(Justification::top);
-	groupOutline->setColour(groupOutline->outlineColourId, Colours::black);
-	groupOutline->setBounds(0, 0, envelopeControlSpacing.necessaryTotalWidth, envelopeControlSpacing.necessaryTotalHeight);
-	addAndMakeVisible(groupOutline);
-
-	addAndMakeVisible(envelopeAttackFader);
-	envelopeAttackFader.addListener(this);
-	addAndMakeVisible(envelopeAttackLabel);
-	envelopeAttackLabel.setText("Attack", dontSendNotification);
-	envelopeAttackLabel.attachToComponent(&envelopeAttackFader, false);
-
-	addAndMakeVisible(envelopeDecayFader);
-	envelopeDecayFader.addListener(this);
-	addAndMakeVisible(envelopeDecayLabel);
-	envelopeDecayLabel.setText("Decay", dontSendNotification);
-	envelopeDecayLabel.attachToComponent(&envelopeDecayFader, false);
-
-	addAndMakeVisible(envelopeSustainFader);
-	envelopeSustainFader.addListener(this);
-	addAndMakeVisible(envelopeSustainLabel);
-	envelopeSustainLabel.setText("Sustain", dontSendNotification);
-	envelopeSustainLabel.attachToComponent(&envelopeSustainFader, false);
-
-	addAndMakeVisible(envelopeReleaseFader);
-	envelopeReleaseFader.addListener(this);
-	addAndMakeVisible(envelopeReleaseLabel);
-	envelopeReleaseLabel.setText("Release", dontSendNotification);
-	envelopeReleaseLabel.attachToComponent(&envelopeReleaseFader, false);
-
 	// Buttons
-	addAndMakeVisible(modeButtonsLabel);
-	modeButtonsLabel.setText("Scaling Mode:", dontSendNotification);
+	modeLabel = new Label();
+	modeLabel->setText("Mode:", dontSendNotification);
+	modeLabel->setTopLeftPosition(30, 40);
+	modeLabel->setSize(100, 20);
+	addAndMakeVisible(modeLabel);
 
 	String modes[3] = {"Linear", "Exponential", "Logarithmic"};
 	modeButtonSet = new RadioButtonSet(this, modes, 3);
+	modeButtonSet->setTopLeftPosition(85, 22);
+	modeButtonSet->setSize(120, modeButtonSet->getNecessaryHeight());
 	addAndMakeVisible(modeButtonSet);
-	modeButtonSet->setBounds(envelopeControlSpacing.buttonsLeftOffset,
-		envelopeControlSpacing.buttonsTopOffset,
-		envelopeControlSpacing.buttonLabelsWidth,
-		modeButtonSet->getNecessaryHeight());
+
+	// Sliders
+	// 50px space between
+	initializeElement(attack, "Attack (ms)", 90, 2, 2000, 1, 2, true);
+	initializeElement(decay, "Decay (ms)", 140, 2, 2000, 1, 2, true);
+	initializeElement(sustain, "Sustain (%)", 190, 0, 100, 1, 100, false);
+	initializeElement(release, "Release (ms)", 240, 2, 2000, 1, 2, true);
 
 	// TODO find a better way to set defaults than hard-coding
-	
-	// set default scaling method
 	modeButtonSet->triggerClick(2); // default == logarithmic
-	// set default ADSR times (this is a horrible hack)
-	sliderValueChanged(&envelopeAttackFader);
-	sliderValueChanged(&envelopeDecayFader);
-	sliderValueChanged(&envelopeSustainFader);
-	sliderValueChanged(&envelopeReleaseFader);
-}
-
-EnvelopeControlGroup::~EnvelopeControlGroup() {
-	delete groupOutline;
 }
 
 void EnvelopeControlGroup::selectionChanged(String & newSelection) {
@@ -77,31 +40,39 @@ void EnvelopeControlGroup::selectionChanged(String & newSelection) {
 }
 
 void EnvelopeControlGroup::sliderValueChanged(Slider* slider) {
-	if (slider == &envelopeAttackFader) {
-		envelopeProcessor->setAttackTime(envelopeAttackFader.getValue());
-	} else if (slider == &envelopeDecayFader) {
-		envelopeProcessor->setDecayTime(envelopeDecayFader.getValue());
-	} else if (slider == &envelopeSustainFader) {
-		envelopeProcessor->setSustainLevel(envelopeSustainFader.getValue() / 100);
-	} else if (slider == &envelopeReleaseFader) {
-		envelopeProcessor->setReleaseTime(envelopeReleaseFader.getValue());
+	if (slider == attack.slider) {
+		envelopeProcessor->setAttackTime(attack.slider->getValue() / 1000);
+	} else if (slider == decay.slider) {
+		envelopeProcessor->setDecayTime(decay.slider->getValue() / 1000);
+	} else if (slider == sustain.slider) {
+		envelopeProcessor->setSustainLevel(sustain.slider->getValue() / 100);
+		// yes, this should be 100, unlike the others
+	} else if (slider == release.slider) {
+		envelopeProcessor->setReleaseTime(release.slider->getValue() / 1000);
 	}
 }
 
-void EnvelopeControlGroup::resized() {
-	envelopeAttackFader.setBounds(envelopeControlSpacing.envelopeLeftOffset, envelopeControlSpacing.envelopeTopOffset, envelopeControlSpacing.envelopeFaderWidth, envelopeControlSpacing.envelopeFaderHeight);
-	envelopeDecayFader.setBounds(envelopeControlSpacing.envelopeLeftOffset + (1 * envelopeControlSpacing.envelopeSideSpace), envelopeControlSpacing.envelopeTopOffset, envelopeControlSpacing.envelopeFaderWidth, envelopeControlSpacing.envelopeFaderHeight);
-	envelopeSustainFader.setBounds(envelopeControlSpacing.envelopeLeftOffset + (2 * envelopeControlSpacing.envelopeSideSpace), envelopeControlSpacing.envelopeTopOffset, envelopeControlSpacing.envelopeFaderWidth, envelopeControlSpacing.envelopeFaderHeight);
-	envelopeReleaseFader.setBounds(envelopeControlSpacing.envelopeLeftOffset + (3 * envelopeControlSpacing.envelopeSideSpace), envelopeControlSpacing.envelopeTopOffset, envelopeControlSpacing.envelopeFaderWidth, envelopeControlSpacing.envelopeFaderHeight);
+void EnvelopeControlGroup::initializeElement(EnvelopeSlider& element, String name,
+	int yPos, double min, double max, double step, double start, bool skew) {
+	element.label = new Label();
+	element.label->setText(name, dontSendNotification);
+	element.label->setSize(150, 20);
+	element.label->setTopLeftPosition(10, yPos);
+	addAndMakeVisible(element.label);
 
-	// Buttons
-	modeButtonsLabel.setBounds(envelopeControlSpacing.modeLabelLeftOffset, envelopeControlSpacing.modeLabelTopOffset, envelopeControlSpacing.modeLabelWidth, envelopeControlSpacing.modeLabelHeight);
-	/*
-	linearModeButton.setBounds(envelopeControlSpacing.buttonsLeftOffset, envelopeControlSpacing.buttonsTopOffset, envelopeControlSpacing.buttonsWidth, envelopeControlSpacing.buttonsHeight);
-	linearModeLabel.setBounds(envelopeControlSpacing.buttonsLeftOffset + envelopeControlSpacing.buttonsWidth, envelopeControlSpacing.buttonsTopOffset, envelopeControlSpacing.buttonLabelsWidth, envelopeControlSpacing.buttonsHeight);
-	exponentialModeButton.setBounds(envelopeControlSpacing.buttonsLeftOffset, envelopeControlSpacing.buttonsTopOffset + (1 * envelopeControlSpacing.buttonsVerticalSpace), envelopeControlSpacing.buttonsWidth, envelopeControlSpacing.buttonsHeight);
-	exponentialModeLabel.setBounds(envelopeControlSpacing.buttonsLeftOffset + envelopeControlSpacing.buttonsWidth, envelopeControlSpacing.buttonsTopOffset + (1 * envelopeControlSpacing.buttonsVerticalSpace), envelopeControlSpacing.buttonLabelsWidth, envelopeControlSpacing.buttonsHeight);
-	logarithmicModeButton.setBounds(envelopeControlSpacing.buttonsLeftOffset, envelopeControlSpacing.buttonsTopOffset + (2 * envelopeControlSpacing.buttonsVerticalSpace), envelopeControlSpacing.buttonsWidth, envelopeControlSpacing.buttonsHeight);
-	logarithmicModeLabel.setBounds(envelopeControlSpacing.buttonsLeftOffset + envelopeControlSpacing.buttonsWidth, envelopeControlSpacing.buttonsTopOffset + (2 * envelopeControlSpacing.buttonsVerticalSpace), envelopeControlSpacing.buttonLabelsWidth, envelopeControlSpacing.buttonsHeight);
-	*/
+	element.slider = new Slider();
+	element.slider->setTextBoxStyle(Slider::TextBoxLeft, false, 50, 20);
+	element.slider->setTextValueSuffix("");
+	element.slider->addListener(this);
+	element.slider->setRange(min, max, step);
+	if (skew) {
+		element.slider->setSkewFactorFromMidPoint(300);
+	}
+	element.slider->setValue(start);
+	element.slider->setSize(180, 20);
+	element.slider->setTopLeftPosition(10, yPos + 20);
+	addAndMakeVisible(element.slider);
+
+	// TODO better defaults
+	sliderValueChanged(element.slider);
 }

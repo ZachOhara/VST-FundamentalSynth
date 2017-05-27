@@ -1,14 +1,14 @@
-#include "PitchBend.h"
+#include "PitchBendProcessor.h"
 
-PitchBend::PitchBend() {
+PitchBendProcessor::PitchBendProcessor() {
 
 }
 
-double PitchBend::getBentFrequency(double rawFrequency) {
+double PitchBendProcessor::getBentFrequency(double rawFrequency) {
 	return rawFrequency * currentPitchMultiplier;
 }
 
-void PitchBend::setModWheelValue(int wheelPos) {
+void PitchBendProcessor::setModWheelValue(int wheelPos) {
 	double pitchBend = ((double) wheelPos) / MAX_WHEEL_VALUE;
 	pitchBend *= 2;
 	pitchBend -= 1;

@@ -3,9 +3,9 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 
-class PitchBend {
+class PitchBendProcessor {
 public:
-	PitchBend();
+	PitchBendProcessor();
 
 	double getBentFrequency(double rawFrequency);
 	void setModWheelValue(int wheelPos);
@@ -18,7 +18,7 @@ private:
 
 	double currentPitchMultiplier = 1;
 
-	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PitchBend)
+	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PitchBendProcessor)
 };
 
 #endif // PITCHBEND_H

@@ -9,7 +9,7 @@ class OscilatorControlGroup :
 	public Component,
 	RadioButtonSet::Listener {
 public:
-	OscilatorControlGroup(int oscilatorNumber, Oscilator& oscilator);
+	OscilatorControlGroup(Oscilator* oscilator);
 
 	void selectionChanged(String& newSelection) override;
 

@@ -74,31 +74,32 @@ void FundamentalSynthesizer::processMidiMessages(MidiBuffer& midiBuffer) {
 void FundamentalSynthesizer::synthesizeAudio() {
 
 	for (int sample = 0; sample < currentSamplesPerBlock; sample++) {
-		for (int i = 0; i < 128; i++) {
-			if (keyboardNotes[i].isNotePlaying) {		
+		for (int note = 0; note < 128; note++) {
+			if (keyboardNotes[note].isNotePlaying) {		
 
 				// get the frequency in the current tuning system
-				double frequency = tuningMap.getFrequency(i);
+				double frequency = tuningProcessor.getFrequency(note);
 				frequency = pitchBendProcessor.getBentFrequency(frequency);
 
+				// get values from the oscilators
+				double oscilatorValues[SYNTH_NUM_OSCILATORS];
+				for (int i = 0; i < SYNTH_NUM_OSCILATORS; i++) {
+					oscilatorValues[i] = oscilators[i].getSampleValue(frequency, currentTime);
+				}
+
 				// mix the oscilators
-				double oscilators[3] = {
-					oscilator1.getSampleValue(frequency, currentTime),
-					oscilator2.getSampleValue(frequency, currentTime),
-					oscilator3.getSampleValue(frequency, currentTime),
-				};
-				double sampleValue = mixer.mixValues(oscilators);
+				double sampleValue = mixer.mixValues(oscilatorValues);
 				
 				// filter it
 				sampleValue = filter.getNextOutput(sampleValue);
 
 				// write to the current sample
 				sampleBuffer[sample] += sampleValue
-					* envelopeProcessor.getVolumeAfterTime(keyboardNotes[i].envelopeState);
+					* envelopeProcessor.getVolumeAfterTime(keyboardNotes[note].envelopeState);
 
 				// check if note is finished releasing
-				if (envelopeProcessor.isFinishedReleasing(keyboardNotes[i].envelopeState)) {
-					keyboardNotes[i].isNotePlaying = false;
+				if (envelopeProcessor.isFinishedReleasing(keyboardNotes[note].envelopeState)) {
+					keyboardNotes[note].isNotePlaying = false;
 				}
 			}
 		}
@@ -106,30 +107,12 @@ void FundamentalSynthesizer::synthesizeAudio() {
 	}
 }
 
-EnvelopeProcessor& FundamentalSynthesizer::getEnvelopeProcessor() {
-	return envelopeProcessor;
-}
-
-TuningProcessor& FundamentalSynthesizer::getTuningProcessor() {
-	return tuningMap;
-}
-
-Oscilator& FundamentalSynthesizer::getOscilator1() {
-	return oscilator1;
-}
-
-Oscilator& FundamentalSynthesizer::getOscilator2() {
-	return oscilator2;
-}
-
-Oscilator& FundamentalSynthesizer::getOscilator3() {
-	return oscilator3;
-}
-
-OscilatorMixer& FundamentalSynthesizer::getMixer() {
-	return mixer;
-}
-
-Filter& FundamentalSynthesizer::getFilter() {
-	return filter;
+SynthProcessorSet FundamentalSynthesizer::getInterfaceProcessors() {
+	SynthProcessorSet synth;
+	synth.tuning = &tuningProcessor;
+	synth.oscilatorArray = oscilators;
+	synth.mixer = &mixer;
+	synth.filter = &filter;
+	synth.envelope = &envelopeProcessor;
+	return synth;
 }

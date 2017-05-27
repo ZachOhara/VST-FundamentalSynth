@@ -9,7 +9,7 @@ class FilterControlGroup :
 	Slider::Listener,
 	Button::Listener {
 public:
-	FilterControlGroup(Filter& processor);
+	FilterControlGroup(Filter* processor);
 
 	void sliderValueChanged(Slider* changed) override;
 	void buttonClicked(Button* pressed) override;

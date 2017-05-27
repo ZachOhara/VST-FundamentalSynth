@@ -3,6 +3,8 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 
+#define SYNTH_NUM_OSCILATORS 3
+
 class OscilatorMixer {
 public:
 	OscilatorMixer();
@@ -13,8 +15,8 @@ public:
 	void setOscilatorIsActive(int oscilatorIndex, bool isActive);
 
 private:
-	double levels[3] = {1, 1, 1};
-	bool oscIsActive[3] = {false, false, false};
+	double levels[SYNTH_NUM_OSCILATORS];
+	bool oscIsActive[SYNTH_NUM_OSCILATORS];
 
 	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(OscilatorMixer)
 };

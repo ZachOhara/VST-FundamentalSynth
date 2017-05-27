@@ -20,9 +20,7 @@ class FundamentalSynthesizerEditor :
 	public AudioProcessorEditor {
 public:
     FundamentalSynthesizerEditor(FSynthAudioProcessor& p,
-		EnvelopeProcessor& envelope, TuningProcessor& tuning,
-		Oscilator& oscilator1, Oscilator& oscilator2, Oscilator& oscilator3,
-		OscilatorMixer& mixer, Filter& filter);
+		SynthProcessorSet synth);
     ~FundamentalSynthesizerEditor();
 	
     void paint (Graphics&) override;
@@ -30,9 +28,7 @@ public:
 
 private:
 	TuningControlGroup* tuningControl;
-	OscilatorControlGroup* oscilator1control;
-	OscilatorControlGroup* oscilator2control;
-	OscilatorControlGroup* oscilator3control;
+	OscilatorControlGroup* oscilatorControls[SYNTH_NUM_OSCILATORS];
 	MixerControlGroup* mixerControl;
 	FilterControlGroup* filterControl;
 

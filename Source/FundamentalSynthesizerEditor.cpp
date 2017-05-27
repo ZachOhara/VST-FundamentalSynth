@@ -2,45 +2,35 @@
 #include "PluginProcessor.h"
 
 FundamentalSynthesizerEditor::FundamentalSynthesizerEditor(FSynthAudioProcessor& p,
-	EnvelopeProcessor& envelope, TuningProcessor& tuning,
-	Oscilator& oscilator1, Oscilator& oscilator2, Oscilator& oscilator3,
-	OscilatorMixer& mixer, Filter& filter):
+	SynthProcessorSet synth):
 
 	AudioProcessorEditor (&p) {
-	setSize(1200, 500);
+	setSize(1200, 475);
 
 	// FIRST COLUMN
 
 	// 200 x 100
-	tuningControl = new TuningControlGroup(tuning);
+	tuningControl = new TuningControlGroup(synth.tuning);
 	tuningControl->setTopLeftPosition(25, 25);
 	addAndMakeVisible(tuningControl);
 	generateGroupOutline("Tuning", tuningControl);
 
 	// SECOND COLUMN
 
-	// 200 x 125
-	oscilator1control = new OscilatorControlGroup(1, oscilator1);
-	oscilator1control->setTopLeftPosition(250, 25);
-	addAndMakeVisible(oscilator1control);
-	generateGroupOutline("Oscilator 1", oscilator1control);
-
-	// 200 x 125
-	oscilator2control = new OscilatorControlGroup(2, oscilator2);
-	oscilator2control->setTopLeftPosition(250, 175);
-	addAndMakeVisible(oscilator2control);
-	generateGroupOutline("Oscilator 2", oscilator2control);
-
-	// 200 x 125
-	oscilator3control = new OscilatorControlGroup(3, oscilator3);
-	oscilator3control->setTopLeftPosition(250, 325);
-	addAndMakeVisible(oscilator3control);
-	generateGroupOutline("Oscilator 3", oscilator3control);
+	// each is 200 x 125
+	for (int i = 0; i < SYNTH_NUM_OSCILATORS; i++) {
+		oscilatorControls[i] = new OscilatorControlGroup(&synth.oscilatorArray[i]);
+		oscilatorControls[i]->setTopLeftPosition(250, 25 + (i * 150));
+		addAndMakeVisible(oscilatorControls[i]);
+		String name = "Oscilator ";
+		name << (i + 1);
+		generateGroupOutline(name, oscilatorControls[i]);
+	}
 
 	// THIRD COLUMN
 
 	// 200 x 500
-	mixerControl = new MixerControlGroup(mixer);
+	mixerControl = new MixerControlGroup(synth.mixer);
 	mixerControl->setTopLeftPosition(475, 25);
 	addAndMakeVisible(mixerControl);
 	generateGroupOutline("Mixer", mixerControl);
@@ -48,19 +38,23 @@ FundamentalSynthesizerEditor::FundamentalSynthesizerEditor(FSynthAudioProcessor&
 	// FOURTH COLUMN
 
 	// 200 x 200
-	filterControl = new FilterControlGroup(filter);
+	filterControl = new FilterControlGroup(synth.filter);
 	filterControl->setTopLeftPosition(700, 25);
 	addAndMakeVisible(filterControl);
 	generateGroupOutline("Filter", filterControl);
 
-	envelopeControl = new EnvelopeControlGroup("Envelope", "Envelope", envelope);
+	envelopeControl = new EnvelopeControlGroup("Envelope", "Envelope", synth.envelope);
 	envelopeControl->setTopLeftPosition(925, 25);
 	addAndMakeVisible(envelopeControl);
 }
 
 FundamentalSynthesizerEditor::~FundamentalSynthesizerEditor() {
 	delete tuningControl;
-	delete oscilator1control;
+	for (int i = 0; i < SYNTH_NUM_OSCILATORS; i++) {
+		delete oscilatorControls[i];
+	}
+	delete mixerControl;
+	delete filterControl;
 	delete envelopeControl;
 }
 

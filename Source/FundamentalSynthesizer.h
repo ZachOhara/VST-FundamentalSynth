@@ -2,13 +2,22 @@
 #define FUNDAMENTALSYNTHESIZER_H
 
 #include "../JuceLibraryCode/JuceHeader.h"
-#include "FundamentalSynthesizerEditor.h"
 #include "Oscilator.h"
 #include "EnvelopeProcessor.h"
 #include "TuningProcessor.h"
-#include "PitchBend.h"
+#include "PitchBendProcessor.h"
 #include "OscilatorMixer.h"
 #include "Filter.h"
+
+// This struct does not include every element of the synth,
+// only the parts that will be passed to the GUI
+struct SynthProcessorSet {
+	TuningProcessor* tuning;
+	Oscilator* oscilatorArray;
+	OscilatorMixer* mixer;
+	Filter* filter;
+	EnvelopeProcessor* envelope;
+};
 
 enum NotePedalState {
 	INACTIVE,
@@ -43,13 +52,7 @@ public:
 	void freeResources();
 	void processBlock(AudioSampleBuffer& audioBuffer, MidiBuffer& midiBuffer);
 
-	TuningProcessor& getTuningProcessor();
-	Oscilator& getOscilator1();
-	Oscilator& getOscilator2();
-	Oscilator& getOscilator3();
-	OscilatorMixer& getMixer();
-	Filter& getFilter();
-	EnvelopeProcessor& getEnvelopeProcessor();
+	SynthProcessorSet getInterfaceProcessors();
 
 private:
 	double secondsPerSample;
@@ -65,13 +68,11 @@ private:
 
 	Notestatus keyboardNotes[128];
 
-	TuningProcessor tuningMap;
-	Oscilator oscilator1;
-	Oscilator oscilator2;
-	Oscilator oscilator3;
+	TuningProcessor tuningProcessor;
+	Oscilator oscilators[SYNTH_NUM_OSCILATORS];
 	OscilatorMixer mixer;
 	Filter filter;
-	PitchBend pitchBendProcessor;
+	PitchBendProcessor pitchBendProcessor;
 	EnvelopeProcessor envelopeProcessor;
 
 	void processMidiMessages(MidiBuffer& midiBuffer);

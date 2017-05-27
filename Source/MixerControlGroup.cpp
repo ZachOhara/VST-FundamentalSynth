@@ -1,9 +1,9 @@
 #include "MixerControlGroup.h"
 
-MixerControlGroup::MixerControlGroup(OscilatorMixer& processor) {
+MixerControlGroup::MixerControlGroup(OscilatorMixer* processor) {
 
 	setSize(WIDTH, HEIGHT);
-	mixer = &processor;
+	mixer = processor;
 
 	// for reference, the panels for each oscilator are at the following y-pos:
 	// osc1: 25
@@ -12,10 +12,11 @@ MixerControlGroup::MixerControlGroup(OscilatorMixer& processor) {
 	// coordinates are relative to window, so subtract 25 to get relative to this
 	// height of each is 125 without external spacing
 
-	for (int i = 0; i < 3; i++) {
+	for (int i = 0; i < SYNTH_NUM_OSCILATORS; i++) {
 		initializeOscilatorControl(controls[i], i + 1, 40 + (150 * i));
 		// TODO: figure out a better way of loading defaults
 		controls[i].activeButton->triggerClick();
+		sliderValueChanged(controls[i].levelSlider);
 	}
 }
 
@@ -45,7 +46,7 @@ void MixerControlGroup::initializeOscilatorControl(OscilatorControl & osc, int o
 }
 
 void MixerControlGroup::sliderValueChanged(Slider* changed) {
-	for (int i = 0; i < 3; i++) {
+	for (int i = 0; i < SYNTH_NUM_OSCILATORS; i++) {
 		if (changed == controls[i].levelSlider) {
 			mixer->setRelativeLevel(i, controls[i].levelSlider->getValue());
 		}
@@ -53,7 +54,7 @@ void MixerControlGroup::sliderValueChanged(Slider* changed) {
 }
 
 void MixerControlGroup::buttonClicked(Button* clicked) {
-	for (int i = 0; i < 3; i++) {
+	for (int i = 0; i < SYNTH_NUM_OSCILATORS; i++) {
 		if (clicked == controls[i].activeButton) {
 			mixer->setOscilatorIsActive(i, controls[i].activeButton->getToggleState());
 		}

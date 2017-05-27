@@ -9,7 +9,7 @@ class MixerControlGroup :
 	Slider::Listener,
 	Button::Listener {
 public:
-	MixerControlGroup(OscilatorMixer& processor);
+	MixerControlGroup(OscilatorMixer* processor);
 
 	void sliderValueChanged(Slider* changed) override;
 	void buttonClicked(Button* clicked) override;
@@ -24,7 +24,7 @@ private:
 		Slider* levelSlider;
 	};
 
-	OscilatorControl controls[3];
+	OscilatorControl controls[SYNTH_NUM_OSCILATORS];
 
 	void initializeOscilatorControl(OscilatorControl& osc, int oscNum, int yPos);
 

@@ -35,7 +35,7 @@ class EnvelopeControlGroup :
 	Slider::Listener,
 	RadioButtonSet::Listener {
 public:
-	EnvelopeControlGroup(String name, String label, EnvelopeProcessor& processor);
+	EnvelopeControlGroup(String name, String label, EnvelopeProcessor* processor);
 	~EnvelopeControlGroup();
 
 	void resized() override;
@@ -61,8 +61,6 @@ private:
 
 	void selectionChanged(String& newSelection) override;
 	void sliderValueChanged(Slider* slider) override;
-
-	void paint(Graphics&) override;
 
 	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(EnvelopeControlGroup)
 };

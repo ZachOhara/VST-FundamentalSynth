@@ -1,8 +1,8 @@
 #include "OscilatorControlGroup.h"
 
-OscilatorControlGroup::OscilatorControlGroup(int oscilatorNumber, Oscilator& processor) {
+OscilatorControlGroup::OscilatorControlGroup(Oscilator* processor) {
 	setSize(WIDTH, HEIGHT);
-	oscilator = &processor;
+	oscilator = processor;
 
 	String wavetypes[4] = {"Sine", "Triangle", "Sawtooth", "Square"};
 	waveTypeButtonSet = new RadioButtonSet(this, wavetypes, 4);

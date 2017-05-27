@@ -1,9 +1,9 @@
 #include "EnvelopeControlGroup.h"
 
-EnvelopeControlGroup::EnvelopeControlGroup(String name, String label, EnvelopeProcessor& envelope) :
+EnvelopeControlGroup::EnvelopeControlGroup(String name, String label, EnvelopeProcessor* envelope) :
 	Component() {
 
-	envelopeProcessor = &envelope;
+	envelopeProcessor = envelope;
 
 	setSize(envelopeControlSpacing.necessaryTotalWidth, envelopeControlSpacing.necessaryTotalHeight);
 
@@ -86,10 +86,6 @@ void EnvelopeControlGroup::sliderValueChanged(Slider* slider) {
 	} else if (slider == &envelopeReleaseFader) {
 		envelopeProcessor->setReleaseTime(envelopeReleaseFader.getValue());
 	}
-}
-
-void EnvelopeControlGroup::paint(Graphics& g) {
-	//g.fillAll(Colours::darkred);
 }
 
 void EnvelopeControlGroup::resized() {

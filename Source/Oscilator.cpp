@@ -22,6 +22,8 @@ double Oscilator::getUnalteredValue(double phase) {
 		return 2 * (phase - 0.5);
 	case SQUARE:
 		return phase < 0.5 ? 1 : -1;
+	default:
+		return 0;
 	}
 }
 

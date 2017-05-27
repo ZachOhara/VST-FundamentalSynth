@@ -1,8 +1,8 @@
 #include "FilterControlGroup.h"
 
-FilterControlGroup::FilterControlGroup(Filter& processor) {
+FilterControlGroup::FilterControlGroup(Filter* processor) {
 	setSize(WIDTH, HEIGHT);
-	filterProcessor = &processor;
+	filterProcessor = processor;
 
 	filterEnabledButton = new ToggleButton();
 	filterEnabledButton->addListener(this);

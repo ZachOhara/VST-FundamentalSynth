@@ -10,7 +10,7 @@ class TuningControlGroup :
 	RadioButtonSet::Listener,
 	Slider::Listener {
 public:
-	TuningControlGroup(TuningProcessor& processor);
+	TuningControlGroup(TuningProcessor* processor);
 
 	void selectionChanged(String& newSelection) override;
 	void sliderValueChanged(Slider* changed) override;

@@ -1,8 +1,8 @@
 #include "TuningControlGroup.h"
 
-TuningControlGroup::TuningControlGroup(TuningProcessor& processor) {
+TuningControlGroup::TuningControlGroup(TuningProcessor* processor) {
 	setSize(WIDTH, HEIGHT);
-	tuningProcessor = &processor;
+	tuningProcessor = processor;
 	
 	String modes[2] = {"Equal Temperament", "Just Temperament"};
 	modeButtonSet = new RadioButtonSet(this, modes, 2);

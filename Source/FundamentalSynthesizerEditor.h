@@ -11,6 +11,7 @@
 #include "OscilatorMixer.h"
 #include "MixerControlGroup.h"
 #include "FilterControlGroup.h"
+#include "MasterVolumeControlGroup.h"
 
 class FSynthAudioProcessor;
 
@@ -29,8 +30,8 @@ private:
 	OscilatorControlGroup* oscilatorControls[SYNTH_NUM_OSCILATORS];
 	MixerControlGroup* mixerControl;
 	FilterControlGroup* filterControl;
-
 	EnvelopeControlGroup* envelopeControl;
+	MasterVolumeControlGroup* volumeControl;
 
 	void generateGroupOutline(String label, Component* component);
 

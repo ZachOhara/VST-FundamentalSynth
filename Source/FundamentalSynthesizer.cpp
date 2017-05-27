@@ -93,9 +93,14 @@ void FundamentalSynthesizer::synthesizeAudio() {
 				// filter it
 				sampleValue = filter.getNextOutput(sampleValue);
 
+				// apply envelope
+				sampleValue *= envelopeProcessor.getVolumeAfterTime(keyboardNotes[note].envelopeState);
+
+				// apply master volume
+				sampleValue = masterVolume.attenuate(sampleValue);
+
 				// write to the current sample
-				sampleBuffer[sample] += sampleValue
-					* envelopeProcessor.getVolumeAfterTime(keyboardNotes[note].envelopeState);
+				sampleBuffer[sample] += sampleValue;
 
 				// check if note is finished releasing
 				if (envelopeProcessor.isFinishedReleasing(keyboardNotes[note].envelopeState)) {
@@ -114,5 +119,6 @@ SynthProcessorSet FundamentalSynthesizer::getInterfaceProcessors() {
 	synth.mixer = &mixer;
 	synth.filter = &filter;
 	synth.envelope = &envelopeProcessor;
+	synth.master = &masterVolume;
 	return synth;
 }

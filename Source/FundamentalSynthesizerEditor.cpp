@@ -50,6 +50,12 @@ FundamentalSynthesizerEditor::FundamentalSynthesizerEditor(FSynthAudioProcessor&
 	envelopeControl->setTopLeftPosition(925, 25);
 	addAndMakeVisible(envelopeControl);
 	generateGroupOutline("Envelope", envelopeControl);
+
+	// 200 x 100
+	volumeControl = new MasterVolumeControlGroup(synth.master);
+	volumeControl->setTopLeftPosition(925, 350);
+	addAndMakeVisible(volumeControl);
+	generateGroupOutline("Output", volumeControl);
 }
 
 FundamentalSynthesizerEditor::~FundamentalSynthesizerEditor() {

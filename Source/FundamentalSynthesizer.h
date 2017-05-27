@@ -8,6 +8,7 @@
 #include "PitchBendProcessor.h"
 #include "OscilatorMixer.h"
 #include "Filter.h"
+#include "MasterVolume.h"
 
 // This struct does not include every element of the synth,
 // only the parts that will be passed to the GUI
@@ -17,6 +18,7 @@ struct SynthProcessorSet {
 	OscilatorMixer* mixer;
 	Filter* filter;
 	EnvelopeProcessor* envelope;
+	MasterVolumeProcessor* master;
 };
 
 enum NotePedalState {
@@ -74,6 +76,7 @@ private:
 	Filter filter;
 	PitchBendProcessor pitchBendProcessor;
 	EnvelopeProcessor envelopeProcessor;
+	MasterVolumeProcessor masterVolume;
 
 	void processMidiMessages(MidiBuffer& midiBuffer);
 	void synthesizeAudio();

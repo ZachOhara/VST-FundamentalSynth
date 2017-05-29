@@ -15,6 +15,12 @@ FundamentalSynthesizerEditor::FundamentalSynthesizerEditor(FSynthAudioProcessor&
 	addAndMakeVisible(tuningControl);
 	generateGroupOutline("Tuning", tuningControl);
 
+	// 200 x 100
+	modeControl = new SynthModeControlGroup(synth.settings);
+	modeControl->setTopLeftPosition(25, 150);
+	addAndMakeVisible(modeControl);
+	generateGroupOutline("Mode", modeControl);
+
 	// SECOND COLUMN
 
 	// each is 200 x 125
@@ -52,7 +58,7 @@ FundamentalSynthesizerEditor::FundamentalSynthesizerEditor(FSynthAudioProcessor&
 	generateGroupOutline("Envelope", envelopeControl);
 
 	// 200 x 100
-	volumeControl = new MasterVolumeControlGroup(synth.master);
+	volumeControl = new MasterVolumeControlGroup(synth.settings);
 	volumeControl->setTopLeftPosition(925, 350);
 	addAndMakeVisible(volumeControl);
 	generateGroupOutline("Output", volumeControl);
@@ -60,12 +66,14 @@ FundamentalSynthesizerEditor::FundamentalSynthesizerEditor(FSynthAudioProcessor&
 
 FundamentalSynthesizerEditor::~FundamentalSynthesizerEditor() {
 	delete tuningControl;
+	delete modeControl;
 	for (int i = 0; i < SYNTH_NUM_OSCILATORS; i++) {
 		delete oscilatorControls[i];
 	}
 	delete mixerControl;
 	delete filterControl;
 	delete envelopeControl;
+	delete volumeControl;
 }
 
 void FundamentalSynthesizerEditor::generateGroupOutline(String label, Component* component) {

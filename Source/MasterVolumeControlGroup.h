@@ -2,13 +2,13 @@
 #define MASTERVOLUMECONTROLGROUP_H
 
 #include "../JuceLibraryCode/JuceHeader.h"
-#include "MasterVolume.h"
+#include "SettingsProcessor.h"
 
 class MasterVolumeControlGroup :
 	public Component,
 	Slider::Listener {
 public:
-	MasterVolumeControlGroup(MasterVolumeProcessor* processor);
+	MasterVolumeControlGroup(SettingsProcessor* processor);
 
 	void sliderValueChanged(Slider* changed) override;
 
@@ -19,7 +19,7 @@ private:
 	Label* label;
 	Slider* slider;
 
-	MasterVolumeProcessor* volumeProcessor;
+	SettingsProcessor* settings;
 
 	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MasterVolumeControlGroup)
 };

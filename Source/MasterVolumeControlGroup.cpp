@@ -1,8 +1,8 @@
 #include "MasterVolumeControlGroup.h"
 
-MasterVolumeControlGroup::MasterVolumeControlGroup(MasterVolumeProcessor* processor) {
+MasterVolumeControlGroup::MasterVolumeControlGroup(SettingsProcessor* processor) {
 	setSize(WIDTH, HEIGHT);
-	volumeProcessor = processor;
+	settings = processor;
 
 	label = new Label();
 	label->setText("Master Volume", dontSendNotification);
@@ -22,6 +22,6 @@ MasterVolumeControlGroup::MasterVolumeControlGroup(MasterVolumeProcessor* proces
 
 void MasterVolumeControlGroup::sliderValueChanged(Slider* changed) {
 	if (changed == slider) { // of course it does
-		volumeProcessor->setMasterVolume(slider->getValue());
+		settings->setMasterVolume(slider->getValue());
 	}
 }

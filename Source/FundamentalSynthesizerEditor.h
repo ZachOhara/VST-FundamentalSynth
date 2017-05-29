@@ -12,6 +12,7 @@
 #include "MixerControlGroup.h"
 #include "FilterControlGroup.h"
 #include "MasterVolumeControlGroup.h"
+#include "SynthModeControlGroup.h"
 
 class FSynthAudioProcessor;
 
@@ -27,6 +28,7 @@ public:
 
 private:
 	TuningControlGroup* tuningControl;
+	SynthModeControlGroup* modeControl;
 	OscilatorControlGroup* oscilatorControls[SYNTH_NUM_OSCILATORS];
 	MixerControlGroup* mixerControl;
 	FilterControlGroup* filterControl;

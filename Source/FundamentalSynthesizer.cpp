@@ -46,6 +46,13 @@ void FundamentalSynthesizer::processMidiMessages(MidiBuffer& midiBuffer) {
 		int noteValue = message.getNoteNumber();
 		double seconds = time * secondsPerSample;
 		if (message.isNoteOn()) {
+			// if a note is attacked in monophonic mode, release all other notes
+			if (settings.getCurrentMode() == MONOPHONIC) {
+				for (int i = 0; i < 128; i++) {
+					keyboardNotes[i].releaseNote(envelopeProcessor, -seconds);
+				}
+			}
+			// now trigger the new note
 			keyboardNotes[noteValue].beginNote(envelopeProcessor, -seconds);
 		} else if (message.isNoteOff()) {
 			// if pedal is not on...
@@ -97,7 +104,7 @@ void FundamentalSynthesizer::synthesizeAudio() {
 				sampleValue *= envelopeProcessor.getVolumeAfterTime(keyboardNotes[note].envelopeState);
 
 				// apply master volume
-				sampleValue = masterVolume.attenuate(sampleValue);
+				sampleValue *= settings.getMasterVolume();
 
 				// write to the current sample
 				sampleBuffer[sample] += sampleValue;
@@ -119,6 +126,6 @@ SynthProcessorSet FundamentalSynthesizer::getInterfaceProcessors() {
 	synth.mixer = &mixer;
 	synth.filter = &filter;
 	synth.envelope = &envelopeProcessor;
-	synth.master = &masterVolume;
+	synth.settings = &settings;
 	return synth;
 }

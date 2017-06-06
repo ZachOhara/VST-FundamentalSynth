@@ -96,6 +96,9 @@ void FundamentalSynthesizer::synthesizeAudio() {
 
 				// mix the oscilators
 				double sampleValue = mixer.mixValues(oscilatorValues);
+
+				// add noise
+				sampleValue += noise.getSampleValue();
 				
 				// filter it
 				sampleValue = filter.getNextOutput(sampleValue);
@@ -124,6 +127,7 @@ SynthProcessorSet FundamentalSynthesizer::getInterfaceProcessors() {
 	synth.tuning = &tuningProcessor;
 	synth.oscilatorArray = oscilators;
 	synth.mixer = &mixer;
+	synth.noise = &noise;
 	synth.filter = &filter;
 	synth.envelope = &envelopeProcessor;
 	synth.settings = &settings;

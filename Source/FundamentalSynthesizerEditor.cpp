@@ -21,6 +21,14 @@ FundamentalSynthesizerEditor::FundamentalSynthesizerEditor(FSynthAudioProcessor&
 	addAndMakeVisible(modeControl);
 	generateGroupOutline("Mode", modeControl);
 
+	// space here for portamento
+
+	// 200 x 100
+	noiseOscilatorControl = new NoiseOscilatorControlGroup(synth.noise);
+	noiseOscilatorControl->setTopLeftPosition(25, 325);
+	addAndMakeVisible(noiseOscilatorControl);
+	generateGroupOutline("Noise Oscilator", noiseOscilatorControl);
+
 	// SECOND COLUMN
 
 	// each is 200 x 125
@@ -71,6 +79,7 @@ FundamentalSynthesizerEditor::~FundamentalSynthesizerEditor() {
 		delete oscilatorControls[i];
 	}
 	delete mixerControl;
+	delete noiseOscilatorControl;
 	delete filterControl;
 	delete envelopeControl;
 	delete volumeControl;

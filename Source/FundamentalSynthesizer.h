@@ -3,6 +3,7 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "Oscilator.h"
+#include "NoiseOscilator.h"
 #include "EnvelopeProcessor.h"
 #include "TuningProcessor.h"
 #include "PitchBendProcessor.h"
@@ -16,6 +17,7 @@ struct SynthProcessorSet {
 	TuningProcessor* tuning;
 	Oscilator* oscilatorArray;
 	OscilatorMixer* mixer;
+	NoiseOscilator* noise;
 	Filter* filter;
 	EnvelopeProcessor* envelope;
 	SettingsProcessor* settings;
@@ -73,6 +75,7 @@ private:
 	TuningProcessor tuningProcessor;
 	Oscilator oscilators[SYNTH_NUM_OSCILATORS];
 	OscilatorMixer mixer;
+	NoiseOscilator noise;
 	Filter filter;
 	PitchBendProcessor pitchBendProcessor;
 	EnvelopeProcessor envelopeProcessor;

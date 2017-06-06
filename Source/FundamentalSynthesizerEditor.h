@@ -8,6 +8,7 @@
 #include "RadioButtonSet.h"
 #include "TuningControlGroup.h"
 #include "OscilatorControlGroup.h"
+#include "NoiseOscilatorControlGroup.h"
 #include "OscilatorMixer.h"
 #include "MixerControlGroup.h"
 #include "FilterControlGroup.h"
@@ -31,6 +32,7 @@ private:
 	SynthModeControlGroup* modeControl;
 	OscilatorControlGroup* oscilatorControls[SYNTH_NUM_OSCILATORS];
 	MixerControlGroup* mixerControl;
+	NoiseOscilatorControlGroup* noiseOscilatorControl;
 	FilterControlGroup* filterControl;
 	EnvelopeControlGroup* envelopeControl;
 	MasterVolumeControlGroup* volumeControl;

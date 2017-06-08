@@ -22,7 +22,7 @@ private:
 
 	NoiseType noiseType = WHITE;
 	double level = 1;
-	bool isActive = true;
+	bool isActive = false;
 
 	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(NoiseOscilator)
 };

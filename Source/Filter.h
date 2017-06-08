@@ -21,11 +21,12 @@ public:
 	void setIsEnabled(bool newIsEnabled);
 
 private:
-	double cutoff = 0;
+	// TODO better defaults
+	double cutoff = 100;
 	double sampleRate;
-	double emphasis;
-	int order;
-	bool isEnabled;
+	double emphasis = 0;
+	int order = 1;
+	bool isEnabled = false;
 
 	FilterState orderStates[3];
 

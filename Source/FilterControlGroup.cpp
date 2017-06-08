@@ -16,7 +16,7 @@ FilterControlGroup::FilterControlGroup(Filter* processor) {
 	filterEnabledLabel->setTopLeftPosition(70, 25);
 	addAndMakeVisible(filterEnabledLabel);
 
-	initializeControlSlider(cutoff, "Cutoff Frequency (KHz)", 50, 0.2, 25, 0.0001, 25);
+	initializeControlSlider(cutoff, "Cutoff Frequency (KHz)", 50, 0.2, 20, 0.0001, 20);
 	cutoff.slider->setSkewFactorFromMidPoint(1);
 	initializeControlSlider(emphasis, "Emphasis", 100, 0, 10, 0.01, 10);
 	initializeControlSlider(order, "Order", 150, 1, 3, 1, 1);
@@ -50,7 +50,7 @@ void FilterControlGroup::initializeControlSlider(ControlSlider & slider, String 
 
 void FilterControlGroup::sliderValueChanged(Slider* changed) {
 	if (changed == cutoff.slider) {
-		filterProcessor->setCutoff(1000 * cutoff.slider->getValue());
+		filterProcessor->setCutoff(cutoff.slider->getValue() * 1000);
 	} else if (changed == emphasis.slider) {
 		filterProcessor->setEmphasis(emphasis.slider->getValue() / 10);
 	} else if (changed == order.slider) {

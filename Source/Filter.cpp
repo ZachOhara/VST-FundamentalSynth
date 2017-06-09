@@ -71,7 +71,7 @@ void Filter::setIsEnabled(bool newIsEnabled) {
 
 void Filter::recalculateCoeffs() {
 	double c = 1 / std::tan(double_Pi * (cutoff / sampleRate));
-	if (cutoff * 2 < sampleRate) {
+	if (cutoff * 2 > sampleRate) {
 		c = 1 / std::tan(double_Pi / 2); // same formula, but cutoff = rate / 2;
 	}
 	double c_squared = c * c;

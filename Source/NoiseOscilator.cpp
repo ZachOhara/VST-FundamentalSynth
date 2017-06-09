@@ -1,19 +1,29 @@
 #include "NoiseOscilator.h"
 
 NoiseOscilator::NoiseOscilator() {
-	
+	// all these constants are determined experimentally
+	pinkFilter.setCutoff(4600);
+	pinkFilter.setEmphasis(1);
+	pinkFilter.setOrder(3);
+	pinkFilter.setIsEnabled(true);
 }
 
 double NoiseOscilator::getSampleValue() {
 	if (isActive) {
+		double white = (((double) rand()) / RAND_MAX) * level * AMPLITUDE_CAP;
+		double pink = pinkFilter.getNextOutput(white);
 		if (noiseType == WHITE) {
-			return (((double) rand()) / RAND_MAX) * level * AMPLITUDE_CAP;
+			return white;
 		} else if (noiseType == PINK) {
-			return 0; // TODO implement later
+			return pink;
 		}
 	} else {
 		return 0;
 	}
+}
+
+void NoiseOscilator::setSampleRate(double newSampleRate) {
+	pinkFilter.setSampleRate(newSampleRate);
 }
 
 void NoiseOscilator::setNoiseType(NoiseType newType) {

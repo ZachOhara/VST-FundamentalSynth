@@ -18,7 +18,11 @@ double OscilatorMixer::mixValues(double* oscValues) {
 			sampleOutput += oscValues[i] * level;
 		}
 	}
-	return sampleOutput / totalLevel;
+	if (totalLevel == 0) {
+		return 0;
+	} else {
+		return sampleOutput / totalLevel;
+	}
 }
 
 void OscilatorMixer::setRelativeLevel(int oscilatorIndex, double level) {

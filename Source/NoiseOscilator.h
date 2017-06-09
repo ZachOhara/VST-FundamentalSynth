@@ -3,6 +3,8 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 
+#include "Filter.h"
+
 enum NoiseType {
 	WHITE,
 	PINK,
@@ -13,6 +15,7 @@ public:
 	NoiseOscilator();
 
 	double getSampleValue();
+	void setSampleRate(double newSampleRate);
 	void setNoiseType(NoiseType newType);
 	void setLevel(double newLevel);
 	void setIsActive(bool newIsActive);
@@ -23,6 +26,8 @@ private:
 	NoiseType noiseType = WHITE;
 	double level = 1;
 	bool isActive = false;
+
+	Filter pinkFilter;
 
 	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(NoiseOscilator)
 };

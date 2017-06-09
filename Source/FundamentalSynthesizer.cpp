@@ -13,7 +13,7 @@ void FundamentalSynthesizer::prepareToPlay(double sampleRate, int samplesPerBloc
 	sampleBuffer = (double*) malloc(sizeof(double) * samplesPerBlock);
 
 	filter.setSampleRate(sampleRate);
-	filter.setCutoff(1000);
+	noise.setSampleRate(sampleRate);
 	envelopeProcessor.setSecondsPerSample(secondsPerSample);
 }
 

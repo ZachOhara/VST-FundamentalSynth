@@ -2,6 +2,7 @@
 #define ENVELOPEPROCESSOR_H_INCLUDED
 
 #include "../JuceLibraryCode/JuceHeader.h"
+#include "Logger.h"
 
 enum EnvelopeScalingMode {
 	LINEAR,
@@ -20,7 +21,6 @@ enum EnvelopeSection {
 };
 
 struct NoteEnvelopeState {
-	int currentState = 0; // 0 for silent, [1,4] for ADSR
 	EnvelopeSection currentSection = SILENCE;
 	double currentVolume = 0; // [0,1]
 	double volumeDelta = 0; // per sample
@@ -31,8 +31,8 @@ class EnvelopeProcessor {
 public:
 	EnvelopeProcessor();
 
-	void beginNote(NoteEnvelopeState& state);
-	void releaseNote(NoteEnvelopeState& state);
+	void beginNote(NoteEnvelopeState& state, double newTime);
+	void releaseNote(NoteEnvelopeState& state, double newTime);
 	bool isFinishedReleasing(NoteEnvelopeState& state);
 	double getVolumeAfterTime(NoteEnvelopeState& state);
 

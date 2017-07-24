@@ -4,16 +4,24 @@ EnvelopeProcessor::EnvelopeProcessor() {
 	
 }
 
-void EnvelopeProcessor::beginNote(NoteEnvelopeState& state) {
+void EnvelopeProcessor::beginNote(NoteEnvelopeState& state, double newTime) {
 	state.currentSection = PRE_ATTACK;
+	state.runningTime = newTime;
 }
 
-void EnvelopeProcessor::releaseNote(NoteEnvelopeState& state) {
+void EnvelopeProcessor::releaseNote(NoteEnvelopeState& state, double newTime) {
 	state.currentSection = PRE_RELEASE;
+	// if the decay won't be finished by the scheduled release point
+	if (state.runningTime + newTime < getAttackTime() + getDecayTime()) {
+		// delay the release point
+		state.runningTime = state.runningTime - (getAttackTime() + getDecayTime());
+	} else {
+		// begin release as scheduled;
+		state.runningTime = newTime;
+	}
 }
 
 bool EnvelopeProcessor::isFinishedReleasing(NoteEnvelopeState& state) {
-	//return state.runningTime > getReleaseTime() && state.currentState == 3; // TODO: fix this bullshit
 	return state.currentSection == SILENCE;
 }
 
@@ -23,6 +31,16 @@ double EnvelopeProcessor::getVolumeAfterTime(NoteEnvelopeState& state) {
 	}
 	state.currentVolume += state.volumeDelta;
 	state.runningTime += secondsPerSample;
+
+	// Correct some edge cases here
+	// (I think these are caused by precision errors in the timing)
+	if (state.currentVolume > 1) {
+		state.currentVolume = 1;
+	}
+	if (state.currentVolume < 0) {
+		state.currentVolume = 0;
+	}
+
 	return getScaledLevel(state.currentVolume);
 }
 
@@ -42,7 +60,7 @@ double EnvelopeProcessor::getScaledLevel(double unscaledLevel) {
 bool EnvelopeProcessor::isReadyToProgress(NoteEnvelopeState& state) {
 	switch (state.currentSection) {
 	case SILENCE:
-		return false; // triggered by a call to beginNote()
+		return false; // progression is triggered by a call to beginNote(), not here
 	case PRE_ATTACK:
 		return state.runningTime > 0;
 	case ATTACK:
@@ -50,7 +68,7 @@ bool EnvelopeProcessor::isReadyToProgress(NoteEnvelopeState& state) {
 	case DECAY:
 		return state.runningTime > getAttackTime() + getDecayTime();
 	case SUSTAIN:
-		return false; // triggered by a call to releaseNote()
+		return false; // progression is triggered by a call to releaseNote(), not here
 	case PRE_RELEASE:
 		return state.runningTime > 0;
 	case RELEASE:
@@ -135,7 +153,6 @@ double EnvelopeProcessor::getSustainLevel() {
 double EnvelopeProcessor::getReleaseTime() {
 	return releaseTime;
 }
-
 
 void EnvelopeProcessor::setScalingMode(EnvelopeScalingMode newMode) {
 	currentMode = newMode;

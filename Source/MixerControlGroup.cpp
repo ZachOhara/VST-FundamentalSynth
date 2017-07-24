@@ -16,8 +16,12 @@ MixerControlGroup::MixerControlGroup(OscilatorMixer* processor) {
 		initializeOscilatorControl(controls[i], i + 1, 40 + (150 * i));
 		// TODO: figure out a better way of loading defaults
 		controls[i].activeButton->triggerClick();
+		// Now that they've been turned on, turn them off
+		controls[i].activeButton->triggerClick();
 		sliderValueChanged(controls[i].levelSlider);
 	}
+	// turn osc 1 on
+	controls[0].activeButton->triggerClick();
 }
 
 void MixerControlGroup::initializeOscilatorControl(OscilatorControl & osc, int oscNum, int yPos) {

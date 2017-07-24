@@ -5,13 +5,14 @@ FundamentalSynthesizer::FundamentalSynthesizer() {
 }
 
 void FundamentalSynthesizer::prepareToPlay(double sampleRate, int samplesPerBlock) {
+	debugLog.initializeLogFile();
+
 	secondsPerSample = 1 / sampleRate;
 	secondsPerBlock = secondsPerSample * samplesPerBlock;
 	currentTime = 0;
 	currentBlockTime = 0;
 	currentSamplesPerBlock = samplesPerBlock;
-	sampleBuffer = (double*) malloc(sizeof(double) * samplesPerBlock);
-
+	sampleBuffer = (double*)malloc(sizeof(double) * samplesPerBlock);
 	filter.setSampleRate(sampleRate);
 	noise.setSampleRate(sampleRate);
 	envelopeProcessor.setSecondsPerSample(secondsPerSample);
@@ -20,6 +21,8 @@ void FundamentalSynthesizer::prepareToPlay(double sampleRate, int samplesPerBloc
 void FundamentalSynthesizer::freeResources() {
 	filter.clearSamples();
 	free(sampleBuffer);
+
+	debugLog.closeLogFile();
 }
 
 void FundamentalSynthesizer::processBlock(AudioSampleBuffer& audioBuffer, MidiBuffer& midiBuffer) {
@@ -65,9 +68,9 @@ void FundamentalSynthesizer::processMidiMessages(MidiBuffer& midiBuffer) {
 			}
 		} else if (message.isPitchWheel()) {
 			pitchBendProcessor.setModWheelValue(message.getPitchWheelValue());
-		} else if (message.isSustainPedalOff()) {
-			isPedalOn = true;
 		} else if (message.isSustainPedalOn()) {
+			isPedalOn = true;
+		} else if (message.isSustainPedalOff()) {
 			isPedalOn = false;
 			for (int i = 0; i < 128; i++) {
 				if (keyboardNotes[i].pedalState == PEDALED) {
@@ -97,17 +100,8 @@ void FundamentalSynthesizer::synthesizeAudio() {
 				// mix the oscilators
 				double sampleValue = mixer.mixValues(oscilatorValues);
 
-				// add noise
-				sampleValue += noise.getSampleValue();
-				
-				// filter it
-				sampleValue = filter.getNextOutput(sampleValue);
-
 				// apply envelope
 				sampleValue *= envelopeProcessor.getVolumeAfterTime(keyboardNotes[note].envelopeState);
-
-				// apply master volume
-				sampleValue *= settings.getMasterVolume();
 
 				// write to the current sample
 				sampleBuffer[sample] += sampleValue;
@@ -118,6 +112,16 @@ void FundamentalSynthesizer::synthesizeAudio() {
 				}
 			}
 		}
+
+		// add noise
+		sampleBuffer[sample] += noise.getSampleValue();
+
+		// apply the filter
+		sampleBuffer[sample] = filter.getNextOutput(sampleBuffer[sample]);
+
+		// apply master volume
+		sampleBuffer[sample] *= settings.getMasterVolume();
+
 		currentTime += secondsPerSample;
 	}
 }

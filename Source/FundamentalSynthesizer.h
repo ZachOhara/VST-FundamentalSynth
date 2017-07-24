@@ -11,6 +11,8 @@
 #include "Filter.h"
 #include "SettingsProcessor.h"
 
+#include "Logger.h"
+
 // This struct does not include every element of the synth,
 // only the parts that will be passed to the GUI
 struct SynthProcessorSet {
@@ -37,14 +39,12 @@ struct Notestatus {
 	void beginNote(EnvelopeProcessor& envelope, double currentTime) {
 		isNotePlaying = true; // this is turned off by the envelope processor, not here
 		pedalState = PRESSED;
-		envelopeState.runningTime = currentTime; // should be <= 0
-		envelope.beginNote(envelopeState);
+		envelope.beginNote(envelopeState, currentTime);
 	}
 
 	void releaseNote(EnvelopeProcessor& envelope, double currentTime) {
 		pedalState = INACTIVE;
-		envelope.releaseNote(envelopeState);
-		envelopeState.runningTime = currentTime; // should be <= 0
+		envelope.releaseNote(envelopeState, currentTime);
 	}
 };
 
@@ -59,6 +59,8 @@ public:
 	SynthProcessorSet getInterfaceProcessors();
 
 private:
+	DebugLogger debugLog;
+
 	double secondsPerSample;
 	double secondsPerBlock;
 	int currentSamplesPerBlock;

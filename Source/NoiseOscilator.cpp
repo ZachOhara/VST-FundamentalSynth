@@ -2,6 +2,7 @@
 
 NoiseOscilator::NoiseOscilator() {
 	// all these constants are determined experimentally
+	// please don't shoot me
 	pinkFilter.setCutoff(4600);
 	pinkFilter.setEmphasis(1);
 	pinkFilter.setOrder(3);
@@ -16,6 +17,8 @@ double NoiseOscilator::getSampleValue() {
 			return white;
 		} else if (noiseType == PINK) {
 			return pink;
+		} else {
+			return 0;
 		}
 	} else {
 		return 0;

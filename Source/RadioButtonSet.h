@@ -38,7 +38,6 @@ private:
 	std::vector<ToggleButton> buttons;
 	std::vector<Label> buttonLabels;
 
-	void paint(Graphics&) override;
 	void resized() override;
 
 	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(RadioButtonSet)

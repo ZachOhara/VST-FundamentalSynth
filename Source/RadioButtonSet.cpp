@@ -34,10 +34,6 @@ int RadioButtonSet::getNecessaryHeight() {
 		+ radioButtonSpacing.buttonsHeight;
 }
 
-void RadioButtonSet::paint(Graphics& g) {
-	//g.fillAll(Colours::darkblue);
-}
-
 void RadioButtonSet::resized() {
 	for (int i = 0; i < length; i++) {
 		buttons[i].setTopLeftPosition(radioButtonSpacing.buttonsLeftOffset,

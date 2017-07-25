@@ -67,7 +67,7 @@ void FundamentalSynthesizer::processMidiMessages(MidiBuffer& midiBuffer) {
 				keyboardNotes[noteValue].pedalState = PEDALED;
 			}
 		} else if (message.isPitchWheel()) {
-			pitchBendProcessor.setModWheelValue(message.getPitchWheelValue());
+			pitchBendProcessor.setModWheelValue(message.getPitchWheelValue(), time);
 		} else if (message.isSustainPedalOn()) {
 			isPedalOn = true;
 		} else if (message.isSustainPedalOff()) {
@@ -99,30 +99,26 @@ void FundamentalSynthesizer::synthesizeAudio() {
 
 				// mix the oscilators
 				double sampleValue = mixer.mixValues(oscilatorValues);
-
 				// apply envelope
 				sampleValue *= envelopeProcessor.getVolumeAfterTime(keyboardNotes[note].envelopeState);
-
 				// write to the current sample
 				sampleBuffer[sample] += sampleValue;
-
 				// check if note is finished releasing
 				if (envelopeProcessor.isFinishedReleasing(keyboardNotes[note].envelopeState)) {
 					keyboardNotes[note].isNotePlaying = false;
 				}
 			}
 		}
-
 		// add noise
 		sampleBuffer[sample] += noise.getSampleValue();
-
 		// apply the filter
 		sampleBuffer[sample] = filter.getNextOutput(sampleBuffer[sample]);
-
 		// apply master volume
 		sampleBuffer[sample] *= settings.getMasterVolume();
 
+		// tick
 		currentTime += secondsPerSample;
+		pitchBendProcessor.progressPitchBendRamp();
 	}
 }
 

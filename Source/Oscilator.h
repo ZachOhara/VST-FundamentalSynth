@@ -14,7 +14,8 @@ class Oscilator {
 public:
 	Oscilator();
 
-	double Oscilator::getSampleValue(double frequency, double time);
+	//double Oscilator::getSampleValue(double frequency, double time);
+	double Oscilator::getSampleValue(double* phase, double frequency, double sampleTime);
 	void setWaveType(WaveType newType);
 	void setOctaveOffset(int newOctave);
 

@@ -17,7 +17,7 @@ private:
 	const double SEMITONE = 16.0 / 15.0;
 	static const int SEMITONE_RANGE = 2; // in either direction
 	const double CORRECTION = .8952;
-	const double DELTA_PITCHBEND = 0.00001;
+	const double DELTA_PITCHBEND = 0.001;
 
 	double currentPitchBend = 0.5; // on [0,1]
 	double targetPitchBend = 0.5;

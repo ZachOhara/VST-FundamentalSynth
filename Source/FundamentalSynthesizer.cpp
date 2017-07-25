@@ -16,6 +16,12 @@ void FundamentalSynthesizer::prepareToPlay(double sampleRate, int samplesPerBloc
 	filter.setSampleRate(sampleRate);
 	noise.setSampleRate(sampleRate);
 	envelopeProcessor.setSecondsPerSample(secondsPerSample);
+
+	for (int i = 0; i < 128; i++) {
+		for (int j = 0; j < SYNTH_NUM_OSCILATORS; j++) {
+			keyboardNotes[i].oscPhase[j] = 0;
+		}
+	}
 }
 
 void FundamentalSynthesizer::freeResources() {
@@ -57,6 +63,12 @@ void FundamentalSynthesizer::processMidiMessages(MidiBuffer& midiBuffer) {
 			}
 			// now trigger the new note
 			keyboardNotes[noteValue].beginNote(envelopeProcessor, -seconds);
+			// debug
+			/*
+			debugLog.logString("Starting note: ");
+			debugLog.logInt(noteValue);
+			debugLog.logNewline();
+			*/
 		} else if (message.isNoteOff()) {
 			// if pedal is not on...
 			if (!isPedalOn) {
@@ -94,8 +106,21 @@ void FundamentalSynthesizer::synthesizeAudio() {
 				// get values from the oscilators
 				double oscilatorValues[SYNTH_NUM_OSCILATORS];
 				for (int i = 0; i < SYNTH_NUM_OSCILATORS; i++) {
-					oscilatorValues[i] = oscilators[i].getSampleValue(frequency, currentTime);
+					oscilatorValues[i] = oscilators[i].getSampleValue(&keyboardNotes[note].oscPhase[i], frequency, secondsPerSample);
 				}
+
+				// debug
+				/*
+				if (sample % 10 == 0) {
+					debugLog.logString("Sample ");
+					debugLog.logInt(sample);
+					debugLog.logString(": ");
+					debugLog.logDouble(oscilatorValues[0]);
+					debugLog.logString(" | ");
+					debugLog.logDouble(keyboardNotes[note].oscPhase[0]);
+					debugLog.logNewline();
+				}
+				*/
 
 				// mix the oscilators
 				double sampleValue = mixer.mixValues(oscilatorValues);
@@ -119,6 +144,12 @@ void FundamentalSynthesizer::synthesizeAudio() {
 		// tick
 		currentTime += secondsPerSample;
 		pitchBendProcessor.progressPitchBendRamp();
+
+		// debug
+		/*
+		debugLog.logDouble(sampleBuffer[sample]);
+		debugLog.logNewline();
+		*/
 	}
 }
 

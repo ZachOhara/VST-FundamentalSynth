@@ -36,6 +36,8 @@ struct Notestatus {
 	NotePedalState pedalState;
 	NoteEnvelopeState envelopeState;
 
+	double oscPhase[SYNTH_NUM_OSCILATORS];
+
 	void beginNote(EnvelopeProcessor& envelope, double currentTime) {
 		isNotePlaying = true; // this is turned off by the envelope processor, not here
 		pedalState = PRESSED;

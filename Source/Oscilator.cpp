@@ -4,11 +4,21 @@ Oscilator::Oscilator() {
 	initSineTable();
 }
 
+/*
 double Oscilator::getSampleValue(double frequency, double time) {
 	frequency *= currentOctave;
 	double phase = (frequency * time);
 	phase = phase - ((int) phase);
 	return AMPLITUDE_FACTOR * getUnalteredValue(phase);
+}
+*/
+
+double Oscilator::getSampleValue(double* phase, double frequency, double sampleTime) {
+	frequency *= currentOctave;
+	//double phase = (frequency * time);
+	*phase += frequency * sampleTime;
+	*phase = *phase - ((int)*phase);
+	return AMPLITUDE_FACTOR * getUnalteredValue(*phase);
 }
 
 double Oscilator::getUnalteredValue(double phase) {
